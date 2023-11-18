@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Courses</title>
+        <link rel="stylesheet" href="css/theme.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    </head>
+    <body>
+        {{> header user}}
+
+        <div class="container">
+            <br/>
+            <h1>Courses</h1>
+            <br>
+
+            {{#if user.isManager}}
+            <nav class="navbar navbar-light bg-light">
+                <div class="container-fluid">
+                    <form class="d-flex" method="post" action="/department/search">
+                        <input class="form-control me-2 col-md-6" type="text" placeholder="Enter Department Number" aria-label="Search" name="departmentId">
+                        <button class="btn btn-info" type="submit">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                            </svg>
+                        </button>
+                    </form>
+                    <a href="/departments/add"><button type="button" class="btn btn-success">Add Department</button></a>
+                </div>
+            </nav>
+            <br>
+            <div class = "table-responsive">
+                <table class = "table">
+                    <tr>
+                        <th>Department Number</th>
+                        <th>Department Name</th>
+                        <th>Options</th>
+                    </tr>
+                    {{#each departments}}
+                    <tr>
+                        <td>{{departmentId}}</td>
+                        <td>{{departmentName}}</td>
+                        <td class="buttonlink">
+                            <a href = "/employees?department={{departmentId}}" >
+                                <button class = "btn btn-info">Employee List</button>
+                            </a>
+                            <a href="/department/{{departmentId}}">
+                                <button class = "btn btn-warning">Update</button>
+                            </a>
+                            <a href="/departments/delete/{{departmentId}}">
+                                <button class = "btn btn-danger">Remove</button>
+                            </a>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </table>
+            </div>  
+            {{#unless departments}}
+                <div class="text-center">
+                    <strong>{{message}}</strong>
+                </div>
+            {{/unless}}
+            {{else}}
+                <p class="errorMsg">You are not authorized to see this page.</p>
+            {{/if}}
+        </div>
+        
+        {{> footer}}
+    </body>
+
+</html>

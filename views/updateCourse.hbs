@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Update Course</title>
+        <link rel="stylesheet" href="css/theme.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    </head>
+    <body>
+        {{> header user}}
+        <div class="container">
+            <br/>
+            <h1>Course Information</h1>
+            <br/>
+            {{#if user.isManager}}
+                <div class="row">
+                    <div class="col-md-12">
+                    <br>
+                    <h2>{{course.courseName}} - Department: {{course.courseId}}</h2>
+                    <hr />
+                        <form method = "POST" action = "/course/update">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <input name = "courseId" type = "hidden" value = "{{course.courseId}}">
+                                        <label for="courseName">Course Name:</label>
+                                        <input class="form-control" id="coursetName" name="courseName" type="text" value="{{course.courseName}}" />
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Course Price:</label>
+                                        <input class="form-control" name = "coursePrice" type="text"  value="{{course.coursePrice}}"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Created At:</label>
+                                        <input class="form-control" name = "createdAt" type="text" value="{{course.createdAt}}"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Updated At:</label>
+                                        <input class="form-control" name = "UpdatedAt" type="text" value="{{course.UpdatedAt}}"/>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <hr />
+                            <input type="submit" class="btn btn-primary float-right" value="Update Course" /><br /><br /><br />
+                        </form>
+                    </div>
+                </div>
+            {{else}}
+                <p class="errorMsg">You are not authorized to see this page.</p>
+            {{/if}}
+        </div>
+        {{> footer}}
+    </body>
+</html>

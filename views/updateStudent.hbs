@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Student</title>
+        <link rel="stylesheet" href="css/theme.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    </head>
+    <body>
+        {{> header user}}
+        <div class="container">
+            <br/>
+            <h1>Update Student Information</h1>
+            <br/>
+            {{#if user}}
+                <div class="row">
+                    <div class="col-md-12">
+                        <br>
+                        <h2>{{student.studentName}} - Student Number: {{student.studentId}}</h2>
+                        <hr />
+                        <form method="post" action="/student/update">
+                            <fieldset>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Student Name</label>
+                                             <input class="form-control" id="studentName" name="studentName" type="text" value="{{student.studentName}}" />                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <input name = "studentId" type = "hidden" value = "{{student.studentId}}">
+                               <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Email:</label>
+                                            <input class="form-control" id="email" name="email" type="email" value="{{student.email}}" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Identity Number:</label>
+                                        <input class="form-control" id="SSN" name="SSN" type="text" value="{{student.SSN}}" readonly/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Address (Street):</label>
+                                            <input class="form-control" id="addressStreet" name="addressStreet" type="text" value="{{student.addressStreet}}" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label >Address (City/Town):</label>
+                                        <input class="form-control" id="addressCity" name="addressCity" type="text" value="{{student.addressCity}}" />
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Address (Province/State):</label>
+                                            <input class="form-control" id="addressState" name="addressState" type="text" value="{{student.addressState}}" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Address (Postal Code):</label>
+                                            <input class="form-control" id="addressPostal" name="addressPostal" type="text" value="{{student.addressPostal}}" />
+                                        </div>
+                                    </div>
+                                </div>
+                                 
+                            </fieldset>
+                            <fieldset>
+                                <legend>Personal Information</legend>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Is Manager:</label>
+                                            <br/>
+                                            <input class="form-check-input" name = "isManager" type="checkbox" 
+                                            {{#if student.isManager}}
+                                                checked
+                                            {{/if}}/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Highest Education:</label>
+                                            <input class="form-control" name = "education" type="text"  value="{{student.education}}"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                                <label>Graduate School:</label>
+                                                <input class="form-control" name = "graduateSchool" type="text" value="{{student.graduateSchool}}"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Status:</label><br />
+                                            <label class="checkbox-inline">
+                                                <input type="radio" name = "status" value="Full Time" 
+                                                {{#equal student.status "Full Time"}} checked {{/equal}}/> Full Time
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="radio" name = "status" value="Part Time"
+                                                {{#equal student.status "Part Time"}}checked{{/equal}}/> Part Time
+                                            </label>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Enroll Date</label>
+                                            <input class="form-control" name = "enrollDate" type="text" value="{{student.enrollDate}}"/>
+                                        </div>
+                                    </div>
+                                   <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Start Date</label>
+                                            <input class="form-control" name = "startDate" type="text" value="{{student.startDate}}"/>
+                                        </div>
+                                    </div>
+                                   <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>End Date</label>
+                                            <input class="form-control" name = "endDate" type="text" value="{{student.endDate}}"/>
+                                        </div>
+                                    </div>
+                                   <div class="col-md-3">
+                                        <div class="form-group" hidden="hidden">
+                                            <label>Password:</label>
+                                            <input class="form-control" name = "password"  type = "text"  value="{{student.password}}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <hr />
+                            <input type="submit" class="btn btn-primary float-right" value="Update Student" /><br /><br /><br />
+                        </form>
+                    </div>
+                </div>
+
+            {{else}}
+                <p class="errorMsg">You are not authorized to see this page.</p>
+            {{/if}}
+        </div>
+        {{> footer}}
+    </body>
+</html>

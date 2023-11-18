@@ -1,0 +1,13 @@
+<nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Hunan Data Analytics Center</a>
+        <span class="navbar-text">
+            {{#if username}}
+                Logged in: {{username}}&nbsp;
+                <a href="/logout"><button type="button" class="btn btn-secondary btn-sm">Log Out</button></a>
+            {{else}}
+                <p>Welcome. Please <a href="/login">log in</a>.</p>
+            {{/if}}
+        </span>
+    </div>
+</nav>

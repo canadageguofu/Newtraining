@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Register Course</title>
+        <link rel="stylesheet" href="css/theme.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    </head>
+    <body>
+        {{!-- {{> header user}} --}}
+        <div class="container">
+            <br/>
+            <h1>Register Course</h1>
+            <br/>
+            {{!-- {{#if user.isManager}} --}}
+                <div class="row">
+                    <main class="col-md-12">
+                        <form method = "post" action = "/course/reg">
+                        {{!-- <form method = "post" action = "/courses/pay"></form>                         --}}
+                            <fieldset>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Student Id</label>
+                                            <input class="form-control" name = "studentId" type="text"/>
+                                        </div>
+                                    </div>
+                                   <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Select Course</label>
+
+                                            {{#if courses}}
+                                            <select class="form-control" name="course" id="course" onchange="course_changed()">
+                                                <option value="">Select Course</option>
+                                                {{#each courses}}
+                                                <option value="{{courseId}}" {{#if selected}} selected {{/if}} >{{courseName}} </option>
+                                                {{/each}}
+                                            </select>
+                                            {{else}}
+                                                <div>No Courses</div>
+                                            {{/if}}
+                                           {{!-- </div> --}}
+                                                
+                                        </div>
+                                    </div>
+                                </div>
+
+                               <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Course Id:</label>
+                                            <input class="form-control" name = "courseId" id ="courseId" type="text"/>
+                                        </div>
+                                    </div>
+ 
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Course Price:</label>
+                                            <input class="form-control" id="coursePrice" name = "coursePrice" type="text"  />
+                                        </div>
+                                    </div>
+                                    <div hidden class="col-md-6">
+                                        <div class="form-group"> 
+                                            <label>All Courses:</label>
+                                            <input class="form-control" name = "AllCourses" id = "AllCourses" type="text" value="{{strcourses}}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                 
+                            </fieldset>
+                            <hr />
+                            <input type="submit" class="btn btn-primary float-right" value="Submit" /><br /><br /><br />
+                        </form>
+                    </main>
+                </div>
+            {{!-- {{else}}
+                <p class="errorMsg">You are not authorized to see this page.</p>
+            {{/if}} --}}
+        </div>
+        {{!-- {{> footer}} --}}
+        <script type="text/javascript">
+            function course_changed() {
+
+ //               const path = require("path");
+ //               const db = require(path.join(__dirname, "/modules/dbModule"));
+ //               const db = require("../modules/dbModule");
+                var e = document.getElementById('course');
+                var str = e.options[e.selectedIndex].text;
+                alert(str + "   " + e.selectedIndex );
+                var cvalue = e.value;
+                document.getElementById('courseId').value = cvalue;
+                var allCourses = document.getElementById('AllCourses').value;
+                var aC = JSON.parse(allCourses);
+                  alert(aC);
+                  alert(aC[0].coursePrice);
+                alert(aC[0].courseName);
+                for(let i=0;i < aC.length; i++){
+                    if (aC[i].courseId == cvalue){
+                        cPrice = aC[i].coursePrice;
+                        alert(cPrice);
+                        document.getElementById('coursePrice').value = cPrice;
+                        break;
+                    }
+                }
+           
+            }
+        </script>
+    </body>
+</html>
