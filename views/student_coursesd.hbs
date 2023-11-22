@@ -19,22 +19,22 @@
                 {{!-- {{#if user.isManager}} --}}
                 <nav class="navbar navbar-light bg-light">
                     <div class="container-fluid">
-                        <form class="d-flex" method="post" action="/student_courses/search">
+                        {{!-- <form class="d-flex" method="post" action="/student_courses/search">
                             <input class="form-control me-2 col-md-6" type="text" placeholder="Enter Department Number" aria-label="Search" name="S_studentId">
                             <button class="btn btn-info" type="submit">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
                                 </svg>
                             </button>
-                        </form>
+                        </form> --}}
                         <a href="/regcourse"><button type="button" class="btn btn-success">Register Courses</button></a>
                     </div>
                 </nav>
                 <br>
                 <div class="row">
-                    <main class="col-md-12">
-                            <form method = "post" action = "/courses/pay">            
-                            {{!-- <form >             --}}
+                    {{!-- <main class="col-md-12"> --}}
+                            {{!-- <form method = "post" action = "/courses/pay">             --}}
+                            <form >            
                                 <div class = "table-responsive">
                                     <table class = "table">
                                         <tr>
@@ -50,28 +50,34 @@
                                             <th>Options</th>
                                         </tr>
                                         {{#each student_courses}}
-                                        <tr>
-                                            <td>{{studentId}}</td>
-                                            <td>{{courseId}}</td>
-                                            <td>{{teacherId}}</td>
-                                            <td>{{enrollDate}}</td>
-                                            <td>{{startDate}}</td>
-                                            <td>{{endDate}}</td>
-                                            <td>{{mark}}</td>
-                                            <td>{{createdAt}}</td>
-                                            <td>{{updatedAt}}</td>
-                                            <td class="buttonlink">
-                                                <a href = "/courses?courseId={{courseId}}" >
-                                                    <button class = "btn btn-info">Course Detail</button>
-                                                </a>
-                                                <a href="/student_courses/{{studentId}}">
-                                                    <button class = "btn btn-warning">Update</button>
-                                                </a>
-                                                <a href="/student_courses/delete/{{studentId}}">
-                                                    <button class = "btn btn-danger">Remove</button>
-                                                </a>
-                                            </td>
-                                        </tr>
+                                            <tr>
+                                                <td>{{studentId}}</td>
+                                                <td>{{courseId}}</td>
+                                                <td>{{teacherId}}</td>
+                                                <td>{{enrollDate}}</td>
+                                                <td>{{startDate}}</td>
+                                                <td>{{endDate}}</td>
+                                                <td>{{mark}}</td>
+                                                <td>{{createdAt}}</td>
+                                                <td>{{updatedAt}}</td>
+                                                <td class="buttonlink">
+                                                    {{!-- <a href = "/courses?courseId={{courseId}}" >
+                                                        <button class = "btn btn-info">Course Detail</button>
+                                                    </a> --}}
+                                                    {{!-- <a href = "/courses?courseId={{courseId}} & stidentId ={{studentId}}" > --}}
+                                                    {{!-- <a href="/payments?courseId={{courseId}} & studentId ={{studentId}}"><button type="button" class="btn btn-success">Register Courses</button></a> --}}
+            {{!-- <a href="/studentspay?courseId={{courseId}}&studentId={{studentId}}"><button type="button" class="btn btn-info">Pay</button></a> --}}
+                                                    <a href="/studentspay/{{courseId}}/{{studentId}}"><button type="button" class="btn btn-info">Pay</button></a>
+
+
+                                                      <a href="/student_courses/{{studentId}}">
+                                                        <button class = "btn btn-warning">Update</button>
+                                                    </a>
+                                                    <a href="/student_courses/delete/{{studentId}}">
+                                                        <button class = "btn btn-danger">Remove</button>
+                                                    </a>
+                                                </td>
+                                            </tr>
                                         {{/each}}
                                     </table>
                                 </div>  
@@ -80,12 +86,12 @@
                                         <strong>{{message}}</strong>
                                     </div>
                                 {{/unless}}
-                                <div>
+                                {{!-- <div>
                                     <input type="submit" class="btn btn-primary float-right" value="Process Payments" /><br /><br /><br />
                                     {{!-- <a href="/courses/pay"><button type="button" class="btn btn-success">Payment Process</button></a>                                     --}}
-                                </div>
+                                </div> --}}
                             </form>
-                    </main>    
+                    {{!-- </main>     --}}
                 </div>
         </div>
             

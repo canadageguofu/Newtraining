@@ -211,9 +211,6 @@ app.get("/employee/:empNum", (req, res) => {
     }).then(db.getDepartments)
     .then((data) => {
         viewData.departments = data; // store department data in the "viewData" object as "departments"
-        // loop through viewData.departments and once we have found the departmentId that matches
-        // the employee's "department" value, add a "selected" property to the matching
-        // viewData.departments object
         for (let i = 0; i < viewData.departments.length; i++) {
             if (viewData.departments[i].departmentId == viewData.employee.department) {
                 viewData.departments[i].selected = true;
@@ -292,7 +289,6 @@ app.get("/courses/:id", (req, res) => {
     db.getCourseById(req.params.id)
     .then((data) => {
         if (data) {
-            console.log(data);
             res.render("updateCourse", {course: data, user: req.session.user});
         } else {
             res.status(404).send("Course Not Found");
@@ -376,7 +372,6 @@ app.get("/teachers/:id", (req, res) => {
     db.getTeacherById(req.params.id)
     .then((data) => {
         if (data) {
-            console.log(data);
             res.render("updateTeacher", {teacher: data, user: req.session.user});
         } else {
             res.status(404).send("Teacher Not Found");
@@ -463,7 +458,7 @@ app.get("/students/:id", (req, res) => {
     db.getStudentById(req.params.id)
     .then((data) => {
         if (data) {
-            console.log(data);
+            // console.log(data);
             res.render("updateStudent", {student: data, user: req.session.user});
         } else {
             res.status(404).send("Student Not Found");
@@ -494,7 +489,6 @@ app.get("/students/search/:id", (req, res) => {
     let viewData = {};
     db.getStudentById(req.params.id)
     .then((data) => {
-        console.log(req.params.id);
         if (data) {
             viewData.students = data;
             res.render("students", {students: viewData, user: req.session.user});
@@ -510,34 +504,12 @@ app.get("/students/reg", (req,res)=>{
     res.render("regStudent");
 }); 
 
-// app.post("/students/reg", (req, res)=>{
-//     req.body.password = hash(req.body.password);
-//     db.addStudent(req.body)
-//     .then(() => {
-//         db.getStudentByNane(req.body.studentName).then((data)=>{
-//             // res.redirect("/students","Your srudent ID is " + data.studentId + "  Please use your student Id and password to register courses" );
-//             // path.resolve(data[0]);
-//             res.status(200).send("Your srudent ID is " + data.studentId + "  Please use your student Id and password to register courses");
-//             path.resolve("You have successfuly registered, studentId is " + data.studentId)
-//         }).catch((err)=>{
-//             console.log(err);
-//             reject("register student failed!");
-//         })
-       
-//     }).catch((err) => {
-//         res.status(500).send(err);
-//     })
-// });
 
 
 app.post("/students/reg", (req, res)=>{
     req.body.password = hash(req.body.password);
     db.addStudent(req.body)
     .then(() => {
-// res.redirect("/regStudent");
-        // res.status(200).send("Successfully registered");
-
-
         db.getStudentByName(req.body.studentName).then((data)=>{
                         // res.redirect("/students","Your srudent ID is " + data.studentId + "  Please use your student Id and password to register courses" );
                         // path.resolve(data[0]);
@@ -574,7 +546,7 @@ app.get("/regcourse", (req, res) => {
 
 app.post("/course/reg", (req, res)=>{
     let qry = "INSERT INTO Student_Courses(courseId, studentId, enrollDate, startDate, createdAt, updatedAt) VALUES('" + req.body.courseId +"'," + req.body.studentId + "," + "now(),now(),now(),now())";
-    console.log(qry);
+    // console.log(qry);
     db.insertMySqlDataByQuery(qry)
     .then(() => {
         res.redirect("/student_courses/search/" + req.body.studentId)
@@ -608,17 +580,14 @@ app.get("/student_courses", (req, res) => {
 //     })
 // });
 app.post("/student_courses/search", (req, res) => {
-    console.log(req.body.S_studentId);
     res.redirect("/student_courses/search/" + req.body.S_studentId)
 });
 
 
 app.get("/student_courses/search/:id", (req, res) => {
-    console.log(req.params.id);
     db.getStudentCourseByStudentId(req.params.id)
     .then((data) => {
         if (data) {
-            console.log(data);
                 if(data.isManager){
                     res.render("student_courses", {student_courses: data, user: req.session.user});
                 }
@@ -660,11 +629,35 @@ app.post("/courses/pay", (req,res)=>{
     res.render("payments", {student_courses:req.body, user: req.session.user});
 });
 
+app.get("/studentspay/:cid/:sid", (req, res) => {
+    let student_course = {};
+    db.getCourseById(req.params.cid)
+    .then((data)=>{
+        student_course.courseId = req.params.cid;
+        student_course.courseName = data.courseName;
+        student_course.coursePrice = data.coursePrice;
+        db.getStudentById(req.params.sid)
+        .then((result)=>{
+            student_course.studentId = req.params.sid;
+            student_course.studentName = result.studentName;
+
+            res.render("payments", {student_courses:student_course, user: req.session.user});
+        }).catch((err)=>{
+            res.render("payments", {message: "Encountered error in student"});
+        })       
+    }).catch((err)=>{
+        res.render("payments", {message: "Encountered error in course"});
+    })
+   
+});
+
+
 app.get("/departments/add", (req,res)=>{
     res.render("addDepartment", {user: req.session.user});
 }); 
 
-app.get("/payment_results", (req,res)=>{
+app.post("/payment_results", (req,res)=>{
+    
     res.render("payment_result", {user: req.session.user});
 }); 
 

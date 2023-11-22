@@ -1045,48 +1045,15 @@ module.exports.addLog = function(logData) {
 
 
 module.exports.getDataByQuery = function(qry) {
-    // console.log(qry);
     return new Promise((resolve, reject) => {
-        // sequelize.query("select 1 as dddddd", {
-        //     type: sequelize.SELECT
-        //   }).then((data)=>{
-        //     data = data.map(value => value.dataValues);
-        //     console.log(JSON.stringify(data[0], null, 2));
-        //     resolve(data)
-        //   }).catch((err) => {
-        //     console.log(err);
-        //     reject("no result returned");
-        //   });
-
-        // sql.connect(sqlConfig).then(()=>{
-        //     sql.query(qry).then((result)=>{
-        //         console.log(result);
-        //         resolve(result);
-        //     }).catch((err)=>{
-        //         console.log(err);
-        //         reject("no result returned");
-        //     })
-        // })
 
         let nameList = "";
         let errorString = "";
-        // Create connection
-        // sql.connect(sqlConfig, function (err) {
-
+ 
         sql.connect(sqlConfig).then(()=>{
-          // Create Request object
-          let sqlRequest = new sql.Request();
+        let sqlRequest = new sql.Request();
       
-          // QueryString
-        //   let queryString = `select * from NAME`;
-          // Run the query
-          sqlRequest.query(qry).then((data)=>{
-            // data.recordset.forEach((el) => {
-            //     nameList += '<li>${el.name}</li>';
-            //   });
-            //   resolve(nameList);
-            // console.log(data.recordset);
-            // data = data.recordset.map(value => value.dataValues);
+        sqlRequest.query(qry).then((data)=>{
             data = data.recordset;
             resolve(data);
         }).catch((err)=>{

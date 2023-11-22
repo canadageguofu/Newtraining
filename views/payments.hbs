@@ -14,7 +14,7 @@
             {{!-- {{#if user.isManager}} --}}
                 <div class="row">
                     <main class="col-md-12">
-                        <form method = "get" action = "/payment_results">
+                        <form method = "post" action = "/payment_results">
                             <fieldset>
                                 <br>
                                 <legend>Course Information</legend>
@@ -27,23 +27,29 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
+                                            <label>Student Name</label>
+                                            <input class="form-control" name = "studentName" type="text" value="{{student_courses.studentName}}"/>
+                                        </div>
+                                    </div>
+                            
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Course Id:</label>
+                                            <input class="form-control" name = "courseId" id ="courseId" type="text" value="{{student_courses.courseId}}"/>
+                                        </div>
+                                    </div>
+                                     <div class="col-md-3">
+                                        <div class="form-group">
                                             <label>Course Name:</label>
                                             <input class="form-control" name = "courseName" id ="courseName" type="text" value="{{student_courses.courseName}}"/>
                                         </div>
                                     </div>                                
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Course Id:</label>
-                                            <input class="form-control" name = "courseId" id ="courseId" type="text" value="{{student_courses.Id}}"/>
-                                        </div>
-                                    </div>
- 
-                                    <div class="col-md-6">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label>Course Price:</label>
-                                            <input class="form-control" id="coursePrice" name = "coursePrice" type="text" value="{{student_courses.price}}" />
+                                            <input class="form-control" id="coursePrice" name = "coursePrice" type="text" value="{{student_courses.coursePrice}}" />
                                         </div>
                                     </div>
                                 </div>
