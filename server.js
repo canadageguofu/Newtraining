@@ -210,13 +210,12 @@ app.get("/employee/:empNum", (req, res) => {
         viewData.employee = null; // set employee to null if there was an error
     }).then(db.getDepartments)
     .then((data) => {
-        viewData.departments = data; // store department data in the "viewData" object as "departments"
-        for (let i = 0; i < viewData.departments.length; i++) {
+        viewData.departments = data; // store department data in the "viewData" object as "department        for (let i = 0; i < viewData.departments.length; i++) {
             if (viewData.departments[i].departmentId == viewData.employee.department) {
                 viewData.departments[i].selected = true;
             }
         }
-    }).catch(() => {
+    ).catch(() => {
         viewData.departments = []; // set departments to empty if there was an error
     }).then(() => {
         if (viewData.employee == null) { // if no employee - return an error
@@ -657,8 +656,24 @@ app.get("/departments/add", (req,res)=>{
 }); 
 
 app.post("/payment_results", (req,res)=>{
-    
-    res.render("payment_result", {user: req.session.user});
+    console.log(req.body);
+    let expDate = "20"+ req.body.expirDate.substr(3,2)+"-"+ req.body.expirDate.substr(0,2)+"-"+"28";
+    let qry = "INSERT INTO Student_Pays(courseId,studentId,paidAmount,payDate,cardNumber,expirDate,cvCode,cardOwner,createdAt,updatedAt) VALUES('" + req.body.courseId +"','" + req.body.studentId+"',"+req.body.coursePrice+",now(),'"+req.body.cardNumber+"','"+expDate+"','"+req.body.cvCode+"','"+req.body.cardOwner+"',"+"now(),now())";
+    // qry = qry + "; \n UPDATE Student_Courses SET paid = 1 WHERE StudentId = " + req.body.studentId + "  AND courseId = '" + req.body.courseId +"';"
+    console.log(qry);
+
+    db.insertMySqlDataByQuery(qry).then(()=>{
+        let qry = "UPDATE Student_Courses SET paid = 1 WHERE StudentId = " + req.body.studentId + "  AND courseId = '" + req.body.courseId +"';"
+        db.insertMySqlDataByQuery(qry).then(()=>{
+            res.render("payment_result", {user: req.session.user});
+        }).catch((err)=>{
+            console.log("update student courses failed!");
+        })       
+    }).catch((err)=>{
+        console.log(err);
+    })  
+
+    // res.render("payment_result", {user: req.session.user});
 }); 
 
 app.post("/departments/add", (req, res)=>{

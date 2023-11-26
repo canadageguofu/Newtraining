@@ -167,9 +167,30 @@ var Course = sequelize.define('Course', {
     updatedAt: true
 });
 
+var Student_Pay = sequelize.define('Student_Pay', {
+    courseId: {
+        type: Sequelize.STRING,
+        primaryKey: true,
+     }, 
+     StudentId: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+     }, 
+    paidAmount: Sequelize.REAL,
+    payDate: Sequelize.DATE,
+    cardNumber:Sequelize.STRING,
+    expirDate:Sequelize.DATE,
+    cvCode:Sequelize.STRING,
+    cardOwner:Sequelize.STRING
+
+}, {
+    createdAt: true,
+    updatedAt: true
+});
+
 var Student_Course = sequelize.define('Student_Course', {
     courseId: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         primaryKey: true
      },
     studentId: {
@@ -191,6 +212,9 @@ var Student_Course = sequelize.define('Student_Course', {
      mark: {
         type: Sequelize.REAL
      }, 
+     paid: {
+        type: Sequelize.TINYINT(1)
+     },     
  }, {
     createdAt: true,
     updatedAt: true
@@ -1074,13 +1098,21 @@ module.exports.insertMySqlDataByQuery = function(qry) {
        
         try{ 
             let connection = mysql.createConnection(mysqlconfig);
+            // connection.query(qry).then(()=>{
+            //     connection.end();
+            //     console.log("successfully insert data");
+            //     resolve("successfully insert data");
+            // }).catch((err)=>{
+            //     connection.end();
+            //     reject("insert student course payment error ");               
+            // }) ;
             connection.query(qry);
             connection.end();
             console.log("successfully insert data");
             resolve("successfully insert data");
         } catch (e){
-            connection.end();
-            console.log(err);
+            // connection.end();
+            console.log("EEEEEEEEEEEEEEEEEEEEEE"+e);
             reject("insert student course error");
         };
    });

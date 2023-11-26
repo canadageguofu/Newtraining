@@ -67,9 +67,11 @@
                                                     {{!-- <a href = "/courses?courseId={{courseId}} & stidentId ={{studentId}}" > --}}
                                                     {{!-- <a href="/payments?courseId={{courseId}} & studentId ={{studentId}}"><button type="button" class="btn btn-success">Register Courses</button></a> --}}
             {{!-- <a href="/studentspay?courseId={{courseId}}&studentId={{studentId}}"><button type="button" class="btn btn-info">Pay</button></a> --}}
-                                                    <a href="/studentspay/{{courseId}}/{{studentId}}"><button type="button" class="btn btn-info">Pay</button></a>
-
-
+                                                    {{#if paid}}
+                                                        <a href="/courseinfo/{{courseId}}/{{studentId}}"><button type="button" class="btn btn-info">Course Info</button></a>
+                                                    {{else}}
+                                                        <a href="/studentspay/{{courseId}}/{{studentId}}"><button type="button" class="btn btn-info">Payment</button></a>                                                    
+                                                    {{/if}}
                                                       <a href="/student_courses/{{studentId}}">
                                                         <button class = "btn btn-warning">Update</button>
                                                     </a>
@@ -88,7 +90,7 @@
                                 {{/unless}}
                                 {{!-- <div>
                                     <input type="submit" class="btn btn-primary float-right" value="Process Payments" /><br /><br /><br />
-                                    {{!-- <a href="/courses/pay"><button type="button" class="btn btn-success">Payment Process</button></a>                                     --}}
+                                    {{!-- <a href="/courses/pay"><button type="button" class="btn btn-success">Payment Process</button></a>--}}
                                 </div> --}}
                             </form>
                     {{!-- </main>     --}}
