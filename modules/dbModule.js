@@ -110,6 +110,26 @@ var Teacher = sequelize.define('Teacher', {
     endDate: true
 });
 
+var Course_Info = sequelize.define('Course_Info', {
+    infoId: {
+        type: Sequelize.INTEGER, 
+        primaryKey: true, 
+        autoIncrement: true
+    }, 
+    courseId: Sequelize.STRING,
+    docType:Sequelize.STRING,
+    section:Sequelize.STRING,
+    document: Sequelize.BLOB,
+    startDate: Sequelize.DATE,
+    endDate:Sequelize.DATE,
+    assignmentDueDate:Sequelize.DATE,
+    supervisor:Sequelize.STRING,
+}, {
+    createdAt: false, 
+    updatedAt: true
+});
+
+
 var Student = sequelize.define('Student', {
     studentId: {
         type: Sequelize.INTEGER, 
