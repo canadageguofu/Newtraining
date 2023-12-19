@@ -122,6 +122,11 @@ app.get("/dashboard", (req, res) => {
     res.render("dashboard", {user: req.session.user, layout: false})
 })
 
+app.get("/display", (req, res) => {
+    res.render("display", {user: req.session.user, layout: false})
+})
+
+
 app.get("/logout", (req, res) => {
     db.addLog({activityId:'',activityType:'logout',activityTime:Date.now(),description: req.session.user.username})
     .then(() => {
