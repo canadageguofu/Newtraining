@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>About</title>
+        <link rel="stylesheet" href="css/theme.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    </head>
+    <body>
+        {{> header user}}
+            <div class="container">
+            <div class="col-md-6">
+                <div class="form-group"> 
+                    <label>All Courses:</label>
+                    <input class="form-control" name = "filepath" id = "filepath" type="text" value="{{wordpath}}"/>
+                </div>
+            </div>
+
+            <input id="files" type="file" accept=".docx" />
+            <input type="button" id="btnPreview" value="Preview Word Document" onclick="PreviewWordDoc()" />
+            <div id="word-container" class=""></div>
+            <script type="text/javascript" src="https://unpkg.com/jszip/dist/jszip.min.js"></script>
+            <script src="Scripts/docx-preview.js"></script>
+            <script type="text/javascript">
+                function PreviewWordDoc() {
+                    //Read the Word Document data from the File Upload.
+ //                   alert(JSON.parse(document.getElementById("files").value));
+ //                   document.getElementById("files").files[0].value = "image/comboboxhtml.docx";
+                    var doc = document.getElementById("files").files[0];
+                    alert(document.getElementById("files").value);
+ //                   var doc = document.getElementById('filepath').value;
+                   
+                    alert(doc.value);
+                    //If Document not NULL, render it.
+                    if (doc != null) {
+                        //Set the Document options.
+                           alert("111111111111111111111111111111");
+                        var docxOptions = Object.assign(docx.defaultOptions, {
+                            useMathMLPolyfill: true
+                        });
+                        //Reference the Container DIV.
+                        var container = document.querySelector("#word-container");
+                        alert(container);
+                        //Render the Word Document.
+                        docx.renderAsync(doc, container, null, docxOptions);
+                    }
+                }
+            </script>
+
+
+        </div>
+        {{> footer}}
+    </body>
+</html>

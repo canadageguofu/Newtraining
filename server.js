@@ -9,6 +9,8 @@ const prompts = require('prompts');
 const hash = require("object-hash");
 const { response } = require("express");
 
+const sql = require('mysql');
+const fs = require('fs');
 
 // SETUP
 //const HTTP_PORT = process.env.PORT || 8080;
@@ -21,6 +23,8 @@ app.use(bodyParser.urlencoded({
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use(express.static(path.join(__dirname, "views")));
+
+app.use("/image", express.static(path.join(__dirname, "/image")));
 
 // app.engine(".hbs", exphbs({
 //     extname: ".hbs",
@@ -37,6 +41,10 @@ app.use(express.static(path.join(__dirname, "views")));
 //         }
 //     }
 // }))
+
+
+
+
 
 app.engine(".hbs", exphbs.engine({
     extname: ".hbs",
@@ -71,6 +79,19 @@ app.use(clientSessions({
         secure: false // when true, cookie will only be sent over SSL. use key 'secureProxy' instead if you handle SSL not in your node process
     }
 }));
+
+const config = {
+    host: "8.217.176.252",
+    port: "3306",
+    user: "root",
+    password: "V2jUQTjVAyMhPIg",
+    database: "Category_Main"   
+  };
+  var hbs = exphbs.create({});
+  hbs.handlebars.registerHelper('doccomp', function(v1,v2) {
+    if (v1 == v2) return "nhidden";
+    else  return "thidden";
+  });
 
 // ROUTES
 app.get("/", (req, res) => {
@@ -122,10 +143,120 @@ app.get("/dashboard", (req, res) => {
     res.render("dashboard", {user: req.session.user, layout: false})
 })
 
+//load and display files
+
+app.get("/store/image", (req, res) => {
+    // const { image, fileName } = req.body;
+    const con = sql.createConnection(config);
+    let imgPath = "D:\\DATA\\Geoffrey.Ge\\初创公司\\湖南数据中心\\IMAGE\\王丽坤.png";
+    const bitmap = fs.readFileSync(imgPath);
+
+    // convert binary data to base64 encoded string
+    const base64Image = new Buffer.from(bitmap).toString('base64');
+
+    const query = "Insert Into Course_Infos(courseID, docType,section,assignName,document, startDate,supervisor,updatedAt) Values('SQL200','PNG','SECTION 2 Contact 5','wlk',?,CURRENT_TIMESTAMP,'Guofu Ge',now())";
+// //  con.query(query, [image], (err, result) => {
+   con.query(query, [bitmap], (err, result) => {    
+     if (err) {
+       console.log(err);
+       res.status(500).send({ msg:'SERVER_ERROR' });
+     } 
+     res.status(200).send( "Successfully insert data" );
+   })
+
+    }
+);  
+
+app.get("/store/pdf", (req, res) => {
+    // const { image, fileName } = req.body;
+    const con = sql.createConnection(config);
+
+    let pdfPath = "D:\\DATA\\Geoffrey.Ge\\初创公司\\湖南数据中心\\DOC\\REACT.pdf";
+    const bitpdf = fs.readFileSync(pdfPath);
+  
+     // convert binary data to base64 encoded string
+    const base64pdf = new Buffer.from(bitpdf).toString('base64');
+  
+    const querypdf = "Insert Into Course_Infos(courseID, docType,section,assignName,document, startDate,supervisor,updatedAt) Values('SQL200','PDF','SECTION 2 PowerpointImage2','REACT.PDF',?,CURRENT_TIMESTAMP,'Guofu Ge',now())";
+  //  con.query(query, [image], (err, result) => {
+    con.query(querypdf, [bitpdf], (err, result) => {    
+      if (err) {
+        console.log(err);
+        res.status(500).send({ msg:'SERVER_ERROR' });
+      }
+      res.status(200).send( "Successfully insert data" );
+    })
+  
+
+    }
+);  
+
+
 app.get("/display", (req, res) => {
-    res.render("display", {user: req.session.user, layout: false})
+
+ //    const {id} = 15;
+    let id = 17;
+    const con = sql.createConnection(config);
+    const query = "Select document From Course_Infos Where infoId = ?";
+    con.query(query, [id], (err, result) => {
+        if (err) {
+          console.log(err);
+        }
+ 
+        let imgPath = "D:\\DATA\\Geoffrey.Ge\\初创公司\\湖南数据中心\\IMAGE\\siteimage.png";
+        const bitmap = fs.readFileSync(imgPath);
+
+        // convert binary data to base64 encoded string
+        const base64Image = new Buffer.from(bitmap).toString('base64');
+        const buff64Image = new Buffer.from(result[0].document).toString('base64');
+        
+        let ext = imgPath.split('.').pop();
+        const uri = `data:image/${ext};base64,${base64Image}`;
+        const hri = `data:image/${ext};base64,${buff64Image}`;
+
+        const videofile1 = "/image/file_example_WMV_480_1_2MB.mp4";
+        const videofile2 = "/image/file_example_OGG_480_1_7mg.ogg";
+        const videofile3 = "/image/file_example_WEBM_480_900KB.webm";
+
+        res.render("display", {user: req.session.user, layout: false, name:"image/王丽坤.png",hfname: hri,uname:uri,v1:videofile1,v2:videofile2,v3:videofile3})
+    });
 })
 
+
+app.get("/displaypdf", (req, res) => {
+
+    //    const {id} = 15;
+       let id = 18;
+       const con = sql.createConnection(config);
+    //    const query = "Select document From Course_Infos Where infoId = ?";
+       const query = "Select TO_BASE64(document) as document From Course_Infos Where infoId = ?";
+       con.query(query, [id], (err, result) => {
+           if (err) {
+             console.log(err);
+           }
+    
+           let imgPath = "D:\\DATA\\Geoffrey.Ge\\初创公司\\湖南数据中心\\IMAGE\\siteimage.png";
+           const bitmap = fs.readFileSync(imgPath);
+   
+           // convert binary data to base64 encoded string
+           const base64Image = new Buffer.from(bitmap).toString('base64');
+           const buff64Image = new Buffer.from(result[0].document).toString('base64');
+           
+           let ext = imgPath.split('.').pop();
+           const uri = `data:image/${ext};base64,${base64Image}`;
+           const hri = `data:image/${ext};base64,${buff64Image}`;
+
+
+           const hriimg = `data:image/${ext};base64,${result[0].document}`;
+
+           const hripdf = `data:application/pdf;base64,${result[0].document}`;
+//           response.render("imageView", { name: hripdf, hname: hripdf,hfname:hripdf, pdfname:hripdf,pdfobj: hripdf }); 
+           const pathName = "image/PowerpointImage2.pdf";
+   
+           res.render("display", {user: req.session.user, layout: false,pdfpath:"image/PowerpointImage2.pdf", name:"image/PowerpointImage2.pdf",hfname: hri,uname:uri, pdfname:hripdf,pdfimg:hriimg});
+       });
+   })
+   
 
 app.get("/logout", (req, res) => {
     db.addLog({activityId:'',activityType:'logout',activityTime:Date.now(),description: req.session.user.username})
@@ -140,6 +271,13 @@ app.get("/logout", (req, res) => {
 app.get("/about", (req, res) => {
     res.render("about", {user: req.session.user})
 })
+
+
+
+app.get("/displayword", (req, res) => {
+    res.render("displayword", {user: req.session.user, wordpath:"image/comboboxhtml.docx"})
+})
+
 
 // EMPLOYEES
 app.get("/employees", (req, res) => {
@@ -332,6 +470,41 @@ app.get("/courses/search/:id", (req, res) => {
 });
 
 
+app.get("/course_info", (req, res) => {
+    db.getCourse_Infos()
+    .then((data) => {
+        if (data.length > 0) {
+            res.render("course_info", {course_infos: data, user: req.session.user});
+        } else {
+            res.render("course_info", {message: "no results", user: req.session.user})
+    }}).catch(() => {
+        res.render("course_info", {message: "Encountered error"});
+    })
+});
+
+app.get("/courseinfo/:cid", (req, res) => {
+    let viewData = {};
+    db.getCourseInfoById(req.params.cid)
+    .then((data)=>{ 
+        if (data) {
+            res.render("course_info", {course_infos:data, user: req.session.user});
+        } else {
+            res.status(404).send("Course Not Found");
+        }
+    }).catch((err)=>{
+        res.render("course_info", {message: "Encountered error in course"});
+    })
+   
+});
+
+
+app.get("/popupdoc", (req, res) => {
+    const dType = req.query.doctype;
+    const fPath = req.query.filepath;
+    res.render("popupdoc", {doctype:dType, filepath: fPath});  
+});
+
+
 //TEACHER
 
 
@@ -353,7 +526,6 @@ app.get("/teachers/add", (req,res)=>{
 }); 
 
 app.post("/teachers/add", (req, res)=>{
-
     db.addTeacher(req.body)
     .then(() => {
         res.redirect("/teachers")

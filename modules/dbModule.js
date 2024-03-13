@@ -119,9 +119,12 @@ var Course_Info = sequelize.define('Course_Info', {
     courseId: Sequelize.STRING,
     docType:Sequelize.STRING,
     section:Sequelize.STRING,
+    assignName:Sequelize.STRING,
     document: Sequelize.BLOB,
+    filepath: Sequelize.STRING,
     startDate: Sequelize.DATE,
     endDate:Sequelize.DATE,
+    week:Sequelize.INTEGER, 
     assignmentDueDate:Sequelize.DATE,
     supervisor:Sequelize.STRING,
 }, {
@@ -332,6 +335,19 @@ module.exports.getCourses = function() {
     });
 }
 
+module.exports.getCourse_Infos = function() {
+    return new Promise((resolve, reject) => {
+        Course_Info.findAll().then((data) => {
+            data = data.map(value => value.dataValues);
+            resolve(data);
+        }).catch((err) => {
+            console.log(err);
+            reject("no results returned");
+        });
+    });
+}
+
+
 
 module.exports.getTeachers = function() {
     return new Promise((resolve, reject) => {
@@ -415,6 +431,22 @@ module.exports.getDepartmentById = function(id) {
         });
     });
 }
+
+
+module.exports.getCourseInfoById = function(id) {
+    return new Promise((resolve, reject) => {
+        Course_Info.findAll({
+            where: {courseId: id}
+        }).then((data) => {
+            data = data.map(value => value.dataValues);
+            resolve(data);
+        }).catch((err) => {
+            console.log(err);
+            reject("no results returned");
+        });
+    });
+}
+
 module.exports.getStudentById = function(id) {
     return new Promise((resolve, reject) => {
         Student.findAll({

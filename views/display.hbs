@@ -7,6 +7,54 @@
     </head>
     <body>
         {{> header user}}
+        <div> 
+            {{!-- <img src="<%= img %>"  width="400" height="400"/> --}}
+
+
+            <div>
+
+                <iframe src="image/comboboxhtml.docx&embedded=true"></iframe>
+                <p>JJJJJJJJJJJJJJJJ</p>
+
+                <iframe src="https://docs.google.com/viewer?url=image/comboboxhtml.docx&embedded=true"> </iframe>
+
+                <embed src="image/comboboxhtml.docx" width="400" height="300" >
+
+                <EMBED SRC="image/comboboxhtml.docx" STYLE="width:680px; height:500px; overflow:auto; border-style:solid; border-width:2px; border-color:#000000">
+
+                <p>GGGGGGGGGGGGGGGGGGGG</p>
+                <object alt="drawing of a PDF" type='application/pdf' data="<%= {{pdfname}} %>" width="400" height="300"></object>
+                <p>FFFFFFFFFFFFFFFFFFFFFF</p>
+                <object alt="drawing of a PDF" type='application/pdf' data="<%= pdfname %>" width="400" height="300"></object>
+
+                <object alt="drawing of a PDF" type='application/pdf' data={{pdfname}} width="400" height="300"></object>
+                <img src={{pdfname}}  width="400" height="400"/>                
+            </div>
+
+            <iframe src="image/PowerpointImage2.pdf" width="400" height="300" style="width: 100%;height: 100%;border: none;"></iframe>
+
+
+            <iframe src="image/PowerpointImage2.pdf" width="400" height="300" ></iframe>
+            <p>{{name}}</p>
+
+            <p>{{pdfpath}}</p>
+
+
+            <p>HHHHHHHHHHHHHHHHHHHHHH</p>
+            <iframe src={{pdfname}} width="400" height="300" ></iframe>
+
+
+
+            <img src={{name}}  width="400" height="400"/>
+            <img src={{hfname}}  width="400" height="400"/>
+            <img src={{uname}}  width="400" height="400"/>
+
+            <img alt="Markham" src={{hrlname}} width="400" height="400"/>
+
+        </div>
+        <div> 
+                <img alt="York" src="image/王丽坤.png"  width="400" height="400">
+        </div>
         <div class="container">
             <h2>About Us</h2>
             <p>NorthStar is a software development company which helps small business owners to improve their efficiency in management and therefore boost their business performance. </p>
@@ -18,8 +66,70 @@
                 <li>Employees can also access the system, but with functionalities limited to viewing and updating their own information</li>
             </ul>
             <div> 
-                <img alt="York" src="D:/DATA/Geoffrey.Ge/初创公司/湖南数据中心/IMAGE/contact5.png">
+                <img alt="York" src="image/contact5.png" width="400" height="400"/>
             </div>
+
+            <div>
+                <object type='application/pdf' data="<%= pdfname %>" width="400" height="300"></object>                
+            </div>
+            <div>
+                    <audio controls>
+                        <source src="https://ccrma.stanford.edu/~jos/mp3/sitar.mp3" type="video/mp4">
+                        <source src="https://ccrma.stanford.edu/~jos/wav/sitar.wav" type="video/wav">
+                        <p>Sorry, your browser doesn't support HTML5 audio </p> 
+                    </audio>               
+            </div>
+            <div>
+				<video width="320" height="240" controls>
+					<source src="https://file-examples-com.github.io/uploads/2017/04/file_example_MP4_480_1_5MG.mp4" type="video/mp4">
+					<source src="https://file-examples-com.github.io/uploads/2018/04/file_example_OGG_480_1_7mg.ogg" type="video/ogg">
+					<source src="https://file-examples-com.github.io/uploads/2020/03/file_example_WEBM_480_900KB.webm" type="video/webm">
+					<p>Sorry, your browser doesn't support HTML5 video</p> 
+				</video>
+            </div>
+            <div>
+                <video width="320" height="240" controls>
+					<source src="/image/file_example_WMV_480_1_2MB.mp4" type="video/mp4">
+					<source src="/image/file_example_OGG_480_1_7mg.ogg" type="video/ogg">
+					<source src="/image/file_example_WEBM_480_900KB.webm" type="video/webm">
+					<p>Sorry, your browser doesn't support HTML5 video</p> 
+				</video>
+            </div>
+            <div>
+                <video width="320" height="240" controls>
+					<source src="/image/small.mp4" type="video/mp4">
+					<source src="/image/small.ogg" type="video/ogg">
+					<source src="/image/small.webm" type="video/webm">
+					<p>Sorry, your browser doesn't support HTML5 video</p> 
+				</video>
+            </div>
+
+            <div>
+                <video width="320" height="240" controls>
+					<source src={{v1}} type="video/mp4">
+					<source src={{v2}} type="video/ogg">
+					<source src={{v3}} type="video/webm">
+					<p>Sorry, your browser doesn't support HTML5 video</p> 
+				</video>
+            </div>
+            <div>
+                <video width="320" height="240" controls>
+                    <SOURCE SRC="/image/SQL100/SQL_Certification_Lesson_1.avi" TYPE="video/avi">
+                    <SOURCE SRC="TestMovie.ogv" TYPE="video/ogg; codecs="THEORA, VORBIS"">
+                    <SOURCE SRC="TestMovie.mp4" TYPE="video/mp4; codecs="AVC1.4D401E, MP4A.40.2"">
+                    <P>The video can't be played on this browser.</P>
+					<p>Sorry, your browser doesn't support HTML5 video</p> 
+				</video>
+
+            </div>
+ 
+            <div>
+                <iframe src="/image/SQL100/SQL_Certification_Lesson_1.avi" width="auto" height="auto"></iframe>
+            </div>
+            <div>
+                <object data="/image/SQL100/SQL_Certification_Lesson_1.avi" width="360" height="250"> <param name="src" value="/image/SQL100/SQL_Certification_Lesson_1.avi" /> </object>
+            </div>
+
         </div>
         {{> footer}}
     </body>
