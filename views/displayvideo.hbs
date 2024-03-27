@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>About</title>
+        <link rel="stylesheet" href="css/theme.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    </head>
+    <body>
+        {{> header user}}
+        <div> 
+            {{!-- <img src="<%= img %>"  width="400" height="400"/> --}}
+
+
+
+        </div>
+        <div class="container">
+            <div class="formPopup palign {{#doccomp doctype 'video'}}{{/doccomp}}" id="videoForm">
+                <div class = "divbackgd">
+                                            {{!-- <button type="button" class="btn" onclick="closeVideoForm()">Close</button> --}}
+                    <input type="button" name="button" value="< Go Back" onclick="javascript:history.go(-1)"/>  
+                </div>
+                <div class ="divbackgdimg">
+                    <video width="600" height="600" controls>
+                        <source src={{filepath}} type="video/mp4">
+                        <p>Sorry, your browser doesn't support HTML5 video</p> 
+				    </video>
+                </div>
+            </div>
+        </div>
+        {{> footer}}
+    </body>
+</html>

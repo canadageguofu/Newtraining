@@ -214,7 +214,9 @@ app.get("/display", (req, res) => {
         const uri = `data:image/${ext};base64,${base64Image}`;
         const hri = `data:image/${ext};base64,${buff64Image}`;
 
-        const videofile1 = "/image/file_example_WMV_480_1_2MB.mp4";
+        // const videofile1 = "/image/file_example_WMV_480_1_2MB.mp4";
+        const videofile1 = "image/SQL100/SQL_Certification_Lesson_1.mp4";
+        
         const videofile2 = "/image/file_example_OGG_480_1_7mg.ogg";
         const videofile3 = "/image/file_example_WEBM_480_900KB.webm";
 
@@ -501,7 +503,20 @@ app.get("/courseinfo/:cid", (req, res) => {
 app.get("/popupdoc", (req, res) => {
     const dType = req.query.doctype;
     const fPath = req.query.filepath;
-    res.render("popupdoc", {doctype:dType, filepath: fPath});  
+    if (dType == "video"){
+       res.render("displayvideo", {doctype:dType, filepath: fPath});   
+    }
+    else if (dType == "PDF"){
+        res.render("displaypdf", {doctype:dType, filepath: fPath});   
+     }
+     else if (dType == "image"){
+        res.render("displayimage", {doctype:dType, filepath: fPath});   
+     }
+     else {
+        res.status(404).send("Course Not File Type");  
+     }
+    
+    
 });
 
 

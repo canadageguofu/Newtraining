@@ -7,6 +7,12 @@
     </head>
     <body>
         {{> header user}}
+        <div>
+            <video width="600" height="600"  id = "videoFile" controls >
+                <source src={{filepath}} type="video/mp4">
+            </video>
+        </div>
+
         <div class="container">
             <div class="loginPopup">
                     <div class="formPopup palign {{#doccomp doctype 'video'}}{{/doccomp}}" id="videoForm">
@@ -16,9 +22,38 @@
                                             <input type="button" name="button" value="< Go Back" onclick="javascript:history.go(-1)"/>  
                                         </div>
                                         <div class ="divbackgdimg">
-                                            <video width="600" src={{filepath}} height="600" controls id = "videoFile">
+                                            {{!-- <video width="600" src={{filepath}} height="600"  autoplay="false" controls id = "videoFile">
                                                 <p>Sorry, your browser doesn't support HTML5 video</p> 
-                                            </video>
+                                            </video> --}}
+{{!-- 
+                                            <video width="600" height="600"  id = "videoFile"  autoplay="autoplay">
+                                                <source src={{filepath}} type="video/mp4">
+                                                <p>Sorry, your browser doesn't support HTML5 video</p> 
+                                            </video> --}}
+
+                                            {{!-- <video width="600" height="600"  id = "videoFile"  autoplay="autoplay" playsinline style="pointer-events: none;">
+                                                <source src={{filepath}} type="video/mp4">
+                                                <p>Sorry, your browser doesn't support HTML5 video</p> 
+                                            </video> --}}
+{{!-- 
+                                            <video width="600" height="600"  id = "videoFile"  autoplay="autoplay" playsinline style="pointer-events: none;" controls>
+                                                <source src={{filepath}} type="video/mp4">
+                                                <p>Sorry, your browser doesn't support HTML5 video</p> 
+                                            </video> --}}
+
+                                            {{!-- <plugin name="video" videourl={{filepath}} devices="flash" />                                             --}}
+                                            {{!-- <video width="600" height="600"  id = "videoFile"  loop="loop" autoplay="" controls="controls" data-bind="visible:!isVideoEnded(),event:{ended:videoEnded}">
+                                                <source src={{filepath}} type="video/webm">
+                                                <source src={{filepath}} type="video/mp4">
+                                                <p>Sorry, your browser doesn't support HTML5 video</p> 
+                                            </video> --}}
+
+
+
+                                            {{!-- <video width="600" height="600"  id = "videoFile" controls poster="/image/王丽坤.png" data-bind="visible:!isVideoEnded(),event:{ended:videoEnded}" controlslist = "nodownload">
+                                                <source src={{filepath}} type="video/mp4">
+                                            </video> --}}
+                                            {{!-- <video src={{filepath}} ></video> --}}
                                         </div>
                             </form>
                     </div>
