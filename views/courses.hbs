@@ -33,11 +33,14 @@
             <br>
             <div class = "table-responsive">
                 <table class = "table">
-                    <tr>
-                        <th>Course Number</th>
-                        <th>Course Name</th>
-                        <th>Course Price</th>
-                    </tr>
+                    <thead>    
+                        <tr>
+                            <th>Course Number</th>
+                            <th>Course Name</th>
+                            <th>Course Price</th>
+                            <th>Options</th>
+                        </tr>
+                    </thead>
                     {{#each courses}}
                     <tr>
                         <td>{{courseId}}</td>

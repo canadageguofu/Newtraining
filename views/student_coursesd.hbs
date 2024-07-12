@@ -2,11 +2,11 @@
 <html>
     <head>
         <title>Student Courses</title>
-        <link rel="stylesheet" href="css/theme.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <link rel="stylesheet" href="css/theme.css" type="text/css">
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>       
     </head>
     <body>
         {{> header user}}
@@ -22,56 +22,69 @@
                 </nav>
                 <br>
                 <div class="row">
-                            <form >            
+                            {{!-- <form >             --}}
                                 <div class = "table-responsive">
-                                    <table class = "table">
-                                        <tr>
-                                            <th>Student Number</th>
-                                            <th>Course Number</th>
-                                            <th>Teacher Number</th>
-                                            <th>Enroll Date</th>
-                                            <th>Start Date</th>
-                                            <th>End Date</th>
-                                            <th>Mark</th>
-                                            <th>created At</th>
-                                            <th>updated At</th>
-                                            <th>Options</th>
-                                        </tr>
-                                        {{#each student_courses}}
+                                    <table class = "table" border-collapse = "collapse" border-color = "red" border = "5px solid" width="auto" id=tab1> 
+                                       <thead bgcolor="darkblue" style="color: white; text-transform:uppercase; text-align: center;vertical-align: middle;font-size: 0.875rem;" >  
+                                            {{!-- <tr class="bluebackground"> --}}
                                             <tr>
-                                                <td>{{studentId}}</td>
-                                                <td>{{courseId}}</td>
-                                                <td>{{teacherId}}</td>
-                                                <td>{{enrollDate}}</td>
-                                                <td>{{startDate}}</td>
-                                                <td>{{endDate}}</td>
-                                                <td>{{mark}}</td>
-                                                <td>{{createdAt}}</td>
-                                                <td>{{updatedAt}}</td>
-                                                <td class="buttonlink">
-
-                                                    {{#if paid}}
-                                                        <a href="/courseinfo/{{courseId}}"><button type="button" class="btn btn-info">Course Info</button></a>
-                                                    {{else}}
-                                                        <a href="/studentspay/{{courseId}}/{{studentId}}"><button type="button" class="btn btn-info">Payment</button></a>                                                    
-                                                    {{/if}}
-                                                      <a href="/student_courses/{{studentId}}">
-                                                        <button class = "btn btn-warning">Update</button>
-                                                    </a>
-                                                    <a href="/student_courses/delete/{{studentId}}">
-                                                        <button class = "btn btn-danger">Remove</button>
-                                                    </a>
-                                                </td>
+                                                <th>Student Number</th>
+                                                <th>Course Number</th>
+                                                <th>Teacher Number</th>
+                                                <th>Enroll Date</th>
+                                                <th>Start Date</th>
+                                                <th>End Date</th>
+                                                <th>Mark</th>
+                                                <th>created At</th>
+                                                <th>updated At</th>
+                                                <th>Options</th>
                                             </tr>
+                                        </thead>
+                                        {{#each student_courses}}
+                                            <tbody id = tbd1>
+                                                <tr>
+                                                    <td>{{studentId}}</td>
+                                                    <td>{{courseId}}</td>
+                                                    <td>{{teacherId}}</td>
+                                                    <td>{{enrollDate}}</td>
+                                                    <td>{{startDate}}</td>
+                                                    <td>{{endDate}}</td>
+                                                    <td>{{mark}}</td>
+                                                    <td>{{createdAt}}</td>
+                                                    <td>{{updatedAt}}</td>
+                                                    <td class="buttonlink">
+
+                                                        {{#if paid}}
+                                                            <a href="/courseinfo/{{courseId}}"><button type="button" class="btn btn-info">Course Info</button></a>
+                                                        {{else}}
+                                                            <a href="/studentspay/{{courseId}}/{{studentId}}"><button type="button" class="btn btn-info">Payment</button></a>                                                    
+                                                        {{/if}}
+                                                        {{!-- <a href="/student_courses/{{studentId}}">
+                                                            <button class = "btn btn-warning">Update</button>
+                                                        </a> --}}
+                                                        <a href="/student_courses/delete/{{studentId}}">
+                                                            <button class = "btn btn-danger">drop course</button>
+                                                        </a>
+                                                    </td>
+                                                </tr> 
+                                            </tbody>
+                                               <script   language=javascript>  
+                                                    var   a = document.all.tab1.getElementsByTagName("tr");  
+                                                    for   (var   i=1;   i<a.length;   i++)  
+                                                    {  
+                                                            a[i].style.background=(i%2==1)   ?   "#C0C0C0"   :   "#FFFFFF";    
+                                                    }  
+                                                </script>                                            
                                         {{/each}}
                                     </table>
+                                   
                                 </div>  
                                 {{#unless student_courses}}
                                     <div class="text-center">
                                         <strong>{{message}}</strong>
                                     </div>
                                 {{/unless}}
-                            </form>
+                            {{!-- </form> --}}
                  </div>
         </div>
             

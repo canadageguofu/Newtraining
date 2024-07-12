@@ -15,12 +15,15 @@
             <br/>
             <h1>Courses Information</h1>
             <br>
+            {{#if errorMsg}}
+                <p class="errorMsg">{{errorMsg}}</p>
+            {{/if}}
 
             {{!-- {{#if user.isManager}} --}}
             <nav class="navbar navbar-light bg-light">
                 <div class="container-fluid">
                     <form class="d-flex" method="post" action="coursesinfo/search">
-                        <input class="form-control me-2 col-md-6" type="text" placeholder="Enter Course Number" aria-label="Search" name="S_courseId">
+                        <input class="form-control me-2 col-md-6" type="text" placeholder="Enter course Number" aria-label="Search" name="S_courseId">
                         <button class="btn btn-info" type="submit">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
@@ -29,16 +32,15 @@
                     </form>
                         {{!-- <a href="/student_courses/add"><button type="button" class="btn btn-success">Add Student Courses</button></a> --}}
                 </div>
-                
             </nav>
             <br>
 
             <div class = "table-responsive">
-                <table class = "table">
-                    <thead>
+                <table class = "table" border-collapse = "collapse" border-color = "red" border = "5px solid" id=tab1> 
+                    <thead bgcolor="darkblue" style="color: white; text-transform:uppercase" > 
                         <tr>
                             <th>Week</th>
-                            <th>Course ID</th>
+                            <th>Course Id</th>
                             <th>Section</th>
                             <th>Assignment Name</th>
                             <th>Start Date</th>
@@ -51,28 +53,39 @@
                         </tr>
                     </thead>
                     {{#each course_infos}}
-                    <tr>
-                        <td>{{week}}</td>
-                        <td>{{courseId}}</td>
-                        <td>{{section}}</td>
-                        <td>{{assignName}}</td>
-                        <td>{{startDate}}</td>
-                        <td>{{endDate}}</td>
-                        <td>{{assignmentDueDate}}</td>                        
-                        <td>{{docType}}</td>
-                        <td hidden>{{filepath}}</td>
-                        <td>{{updatedAt}}</td>
-                        <td class="buttonlink">
-                          {{!-- <a> <button class="openButton" onclick="openForm('gggg','hhhhh')"><strong>view document</strong></button> </a>  --}}                        
-                          {{!-- <a> <button class = "btn btn-info" onclick="openForm('{{docType}}','{{filepath}}')"><strong>view document</strong></button> </a>  --}}
-                            <a href='/popupdoc?doctype={{docType}}&filepath={{filepath}}'><button type="button" class="btn btn-success">view document</button></a>
-                            {{!-- <a href="/popupdoc/{{docType}}/{{filepath}}"><button class = "btn btn-danger">view document</button></a> --}}
-                        </td>
-                    </tr>
+                    <tbody id = tbd1>
+                        <tr>
+                            <td>{{week}}</td>
+                            <td>{{courseId}}</td>
+                            <td>{{section}}</td>
+                            <td>{{assignName}}</td>
+                            <td>{{startDate}}</td>
+                            <td>{{endDate}}</td>
+                            <td>{{assignmentDueDate}}</td>                        
+                            <td>{{docType}}</td>
+                            <td hidden>{{filepath}}</td>
+                            <td>{{updatedAt}}</td>
+                            <td class="buttonlink">
+                            {{!-- <a> <button class="openButton" onclick="openForm('gggg','hhhhh')"><strong>view document</strong></button> </a>  --}}                        
+                            {{!-- <a> <button class = "btn btn-info" onclick="openForm('{{docType}}','{{filepath}}')"><strong>view document</strong></button> </a>  --}}
+                                <a href='/popupdoc?doctype={{docType}}&filepath={{filepath}}'><button type="button" class="btn btn-success">view document</button></a>
+                                {{!-- <a href="/popupdoc/{{docType}}/{{filepath}}"><button class = "btn btn-danger">view document</button></a> --}}
+                            </td>
+                        </tr>
+                    </tbody>
+                    <script   language=javascript>  
+                        var   a = document.all.tab1.getElementsByTagName("tr");  
+                            for   (var   i=1;   i<a.length;   i++)  
+                                {  
+                                    a[i].style.background=(i%2==1)   ?   "#C0C0C0"   :   "#FFFFFF";    
+                                }  
+                    </script>     
+
                     {{/each}}
                 </table>
             </div>  
             {{#unless course_infos}}
+            
                 <div class="text-center">
                     <strong>{{message}}</strong>
                 </div>

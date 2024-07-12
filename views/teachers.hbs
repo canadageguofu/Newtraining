@@ -31,20 +31,22 @@
             <br>
             <div class = "table-responsive">
                 <table class = "table">
-                    <tr>
-                        <th>Teacher Number</th>
-                        <th>Teacher Name</th>
-                        <th>Email</th>
-                        <th>Address</th>
-                        <th>Is Manager</th>
-                        <th>Education</th>
-                        <th>Graduate University</th>
-                        <th>Status</th>
-                        <th>Hire Date</th>
-                        <th>End Date</th>
-                        <th>Updated At</th>
-                        <th>Options</th>
-                    </tr>
+                    <thead>    
+                        <tr>
+                            <th>Teacher Number</th>
+                            <th>Teacher Name</th>
+                            <th>Email</th>
+                            <th>Address</th>
+                            <th>Is Manager</th>
+                            <th>Education</th>
+                            <th>Graduate University</th>
+                            <th>Status</th>
+                            <th>Hire Date</th>
+                            <th>End Date</th>
+                            <th>Updated At</th>
+                            <th>Options</th>
+                        </tr>
+                    </thead>
                     {{#each teachers}}
                         <tr>
                             <td>{{teacherId}}</td>
@@ -82,5 +84,4 @@
         
         {{> footer}}
     </body>
-
 </html>

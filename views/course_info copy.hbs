@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Courses Infomation</title>
+        <link rel="stylesheet" href="css/theme.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    </head>
+    <body>
+        {{> header user}}
+
+        <div class="container">
+            <br/>
+            <h1>Courses Information</h1>
+            <br>
+
+            {{!-- {{#if user.isManager}} --}}
+            <nav class="navbar navbar-light bg-light">
+                <div class="container-fluid">
+                    <form class="d-flex" method="post" action="coursesinfo/search">
+                        <input class="form-control me-2 col-md-6" type="text" placeholder="Enter Course Number" aria-label="Search" name="S_courseId">
+                        <button class="btn btn-info" type="submit">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                            </svg>
+                        </button>
+                    </form>
+                        {{!-- <a href="/student_courses/add"><button type="button" class="btn btn-success">Add Student Courses</button></a> --}}
+                </div>
+            </nav>
+            <br>
+            <div>
+                <div class="loginPopup">
+                    <div hidden class="formPopup palign" id="popupForm">
+                        {{!-- <form action="/action_page.php" class="formContainer" width="800" height="800"> --}}
+                        <form action="/action_page.php" class="formContainer" width=100% height=100%>
+                            <div class = "divbackgd"> 
+                                <button type="button" class="btn" onclick="closePdfForm()">Close</button>
+                            </div>
+                            <div class ="divbackgdimg">
+                                {{!-- <iframe src="image/PowerpointImage2.pdf" id = "pdfpath" width="500" height="500" ></iframe> --}}
+                                <iframe id = "pdfpath" width=600 height=600 ></iframe>                    
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="loginPopup">
+                        <div hidden class="formPopup palign" id="videoForm">
+                            <form action="/action_page.php" class="formContainer" width=100% height=100%>
+                            <div class = "divbackgd">
+                                <button type="button" class="btn" onclick="closeVideoForm()">Close</button>
+                            </div>
+                            <div class ="divbackgdimg">
+                                <video width="600" height="600" controls id = "videoFile">
+                                    {{!-- <source src="/image/small.mp4" type="video/mp4">
+                                    <source src="/image/small.ogg" type="video/ogg">
+                                    <source src="/image/small.webm" type="video/webm"> --}}
+                                    <p>Sorry, your browser doesn't support HTML5 video</p> 
+                                </video>
+                            </div>
+                            </form>
+                        </div>
+                </div>      
+                <div class="loginPopup">
+                        <div hidden class="formPopup palign" id="imgForm">
+                            <form action="/action_page.php" class="formContainer" width=100% height=100%>
+                            <div class = "divbackgd">
+                                <button type="button" class="btn" onclick="closeImgForm()">Close</button>
+                            </div>
+                            <div class ="divbackgdimg">
+                                <img alt="York" id="imgFile"  width="400" height="400">
+                            </div>
+                            </form>
+                        </div>
+                </div>             
+            </div>
+            <div class = "table-responsive">
+                <table class = "table">
+                    <thead>
+                        <tr>
+                            <th>Week</th>
+                            <th>Course ID</th>
+                            <th>Section</th>
+                            <th>Assignment Name</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Due Date</th>
+                            <th>File Type</th>
+                            <th hidden>File Path</th>
+                            <th>updated At</th>
+                            <th>Options</th>
+                        </tr>
+                    </thead>
+                    {{#each course_infos}}
+                    <tr>
+                        <td>{{week}}</td>
+                        <td>{{courseId}}</td>
+                        <td>{{section}}</td>
+                        <td>{{assignName}}</td>
+                        <td>{{startDate}}</td>
+                        <td>{{endDate}}</td>
+                        <td>{{assignmentDueDate}}</td>                        
+                        <td>{{docType}}</td>
+                        <td hidden>{{filepath}}</td>
+                        <td>{{updatedAt}}</td>
+                        <td class="buttonlink">
+                          {{!-- <a> <button class="openButton" onclick="openForm('gggg','hhhhh')"><strong>view document</strong></button> </a>  --}}                        
+                          {{!-- <a> <button class = "btn btn-info" onclick="openForm('{{docType}}','{{filepath}}')"><strong>view document</strong></button> </a>  --}}
+                            <a href='/popupdoc?doctype={{docType}}&filepath={{filepath}}'><button type="button" class="btn btn-success">view document</button></a>
+                            {{!-- <a href="/popupdoc/{{docType}}/{{filepath}}"><button class = "btn btn-danger">view document</button></a> --}}
+                        </td>
+                    </tr>
+                    {{/each}}
+                </table>
+            </div>  
+            {{#unless course_infos}}
+                <div class="text-center">
+                    <strong>{{message}}</strong>
+                </div>
+            {{/unless}}
+            {{!-- {{else}}
+                <p class="errorMsg">You are not authorized to see this page.</p>
+            {{/if}} --}}
+        </div>
+        
+        {{!-- {{> footer}} --}}
+
+            <div class="loginPopup">
+                <div hidden class="formPopup palign" id="popupForm">
+                    {{!-- <form action="/action_page.php" class="formContainer" width="800" height="800"> --}}
+                    <form action="/action_page.php" class="formContainer" width=100% height=100%>
+                        <div class = "divbackgd"> 
+                            <button type="button" class="btn" onclick="closePdfForm()">Close</button>
+                        </div>
+                        <div class ="divbackgdimg">
+                            {{!-- <iframe src="image/PowerpointImage2.pdf" id = "pdfpath" width="500" height="500" ></iframe> --}}
+                            <iframe id = "pdfpath" width=600 height=600 ></iframe>                    
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="loginPopup">
+                    <div hidden class="formPopup palign" id="videoForm">
+                        <form action="/action_page.php" class="formContainer" width=100% height=100%>
+                        <div class = "divbackgd">
+                            <button type="button" class="btn" onclick="closeVideoForm()">Close</button>
+                        </div>
+                        <div class ="divbackgdimg">
+                            <video width="600" height="600" controls id = "videoFile">
+                                {{!-- <source src="/image/small.mp4" type="video/mp4">
+                                <source src="/image/small.ogg" type="video/ogg">
+                                <source src="/image/small.webm" type="video/webm"> --}}
+                                <p>Sorry, your browser doesn't support HTML5 video</p> 
+                            </video>
+                        </div>
+                        </form>
+                    </div>
+            </div>      
+            <div class="loginPopup">
+                    <div hidden class="formPopup palign" id="imgForm">
+                        <form action="/action_page.php" class="formContainer" width=100% height=100%>
+                        <div class = "divbackgd">
+                            <button type="button" class="btn" onclick="closeImgForm()">Close</button>
+                        </div>
+                        <div class ="divbackgdimg">
+                            <img alt="York" id="imgFile"  width="400" height="400">
+                        </div>
+                        </form>
+                    </div>
+            </div>             
+
+
+            <script>
+                    function openForm(a,b) {
+                        if(a=="PDF"){
+                                document.getElementById("popupForm").hidden = false;
+                                document.getElementById("popupForm").style.display = "block";
+                                document.getElementById("pdfpath").src = b;    
+                                window.open ('/regcourse', 'newwindow', 'height=100, width=400, top=0, left=0, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=n o, status=no') //这句要写成一行                
+                        }
+                        else if(a=="video"){
+                                document.getElementById("videoForm").hidden = false;
+                                document.getElementById("videoForm").style.display = "block";
+                                document.getElementById("videoFile").src = b;
+                        }
+                        else if(a=="image"){
+                                document.getElementById("imgForm").hidden = false;
+                                document.getElementById("imgForm").style.display = "block";
+                                document.getElementById("imgFile").src = b;
+                        }
+                    }
+                    function closePdfForm() {
+                        document.getElementById("popupForm").style.display = "none";
+                    }
+                    function closeVideoForm() {
+                        document.getElementById("videoForm").style.display = "none";
+                    }           
+                    function closeImgForm() {
+                        document.getElementById("imgForm").style.display = "none";
+                    }                               
+            </script>
+        {{> footer}}       
+    </body>
+
+</html>

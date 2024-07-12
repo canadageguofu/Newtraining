@@ -476,6 +476,7 @@ app.get("/course_info", (req, res) => {
     db.getCourse_Infos()
     .then((data) => {
         if (data.length > 0) {
+
             res.render("course_info", {course_infos: data, user: req.session.user});
         } else {
             res.render("course_info", {message: "no results", user: req.session.user})
@@ -484,17 +485,23 @@ app.get("/course_info", (req, res) => {
     })
 });
 
+app.post("coursesinfo/search", (req, res) => {
+    console.log("FHhdgjhdgjgagdjsgdjsgdjsgjsgj");
+    res.redirect("/courseinfo/" + req.body.S_courseId)
+});
+
+
 app.get("/courseinfo/:cid", (req, res) => {
     let viewData = {};
     db.getCourseInfoById(req.params.cid)
     .then((data)=>{ 
         if (data) {
-            res.render("course_info", {course_infos:data, user: req.session.user});
+            res.render("course_infos", {course_infos:data, user: req.session.user});
         } else {
             res.status(404).send("Course Not Found");
         }
     }).catch((err)=>{
-        res.render("course_info", {message: "Encountered error in course"});
+        res.render("course_infos", {message: "Encountered error in course"});
     })
    
 });
@@ -589,7 +596,7 @@ app.get("/teachers/search/:id", (req, res) => {
     let viewData = {};
     db.getTeacherById(req.params.id)
     .then((data) => {
-        console.log(req.params.id);
+        // console.log(req.params.id);
         if (data) {
             viewData.teachers = data;
             res.render("teachers", {teachers: viewData, user: req.session.user});
@@ -972,6 +979,7 @@ app.post("/sysadm/update", (req, res) => {
 
 app.post("/sysadm/search", (req, res) => {
     if (req.body.username != "") {
+        console.log("ahdhjhjadsjasd");
         res.redirect("/sysadm/" + req.body.username)
     } else {
         res.redirect("/sysadms")

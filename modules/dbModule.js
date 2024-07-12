@@ -315,6 +315,20 @@ module.exports.getStudents = function() {
     return new Promise((resolve, reject) => {
         Student.findAll().then((data) => {
             data = data.map(value => value.dataValues);
+            for(i=0;i<data.length;i++){
+                if (data[i]["enrollDate"] !== null && data[i]["enrollDate"] !== undefined) {
+                    // data[i]["endDate"] = data[i]["endDate"].toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
+                    data[i]["enrollDate"] = convertDate(data[i]["enrollDate"]);
+                }
+                if (data[i]["endDate"] !== null && data[i]["endDate"] !== undefined) {
+                    // data[i]["endDate"] = data[i]["endDate"].toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
+                    data[i]["endDate"] = convertDate(data[i]["endDate"]);
+                }
+                if (data[i]["startDate"] !== null && data[i]["startDate"] !== undefined) {
+                    // data[i]["startDate"] = data[i]["startDate"].toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
+                    data[i]["startDate"] = convertDate(data[i]["startDate"]);
+                }
+            }
             resolve(data);
         }).catch((err) => {
             console.log(err);
@@ -339,6 +353,26 @@ module.exports.getCourse_Infos = function() {
     return new Promise((resolve, reject) => {
         Course_Info.findAll().then((data) => {
             data = data.map(value => value.dataValues);
+            for(i=0;i<data.length;i++){
+                // data[i]["updatedAt"] = data[i]["updatedAt"].toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
+                if ( data[i]["updatedAt"] !== null &&  data[i]["updatedAt"] !== undefined) {
+                    // data[i]["updatedAt"] =  data[i]["updatedAt"].toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
+                    data[i]["updatedAt"] = convertDate(data[i]["updatedAt"]);
+                }
+                if (data[i]["endDate"] !== null && data[i]["endDate"] !== undefined) {
+                    // data[i]["endDate"] = data[i]["endDate"].toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
+                    data[i]["endDate"] = convertDate(data[i]["endDate"]);
+                }
+                if (data[i]["startDate"] !== null && data[i]["startDate"] !== undefined) {
+                    // data[i]["startDate"] = data[i]["startDate"].toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
+                    data[i]["startDate"] = convertDate(data[i]["startDate"]);
+                }
+                if (data[i]["assignmentDueDate"] !== null && data[i]["assignmentDueDate"] !== undefined) {
+                    // data[i]["startDate"] = data[i]["startDate"].toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
+                    data[i]["assignmentDueDate"] = convertDate(data[i]["assignmentDueDate"]);
+                }
+           }            
+        //    console.log(data);             
             resolve(data);
         }).catch((err) => {
             console.log(err);
@@ -353,6 +387,20 @@ module.exports.getTeachers = function() {
     return new Promise((resolve, reject) => {
         Teacher.findAll().then((data) => {
             data = data.map(value => value.dataValues);
+            for(i=0;i<data.length;i++){
+                if (data[i]["hireDate"] !== null && data[i]["hireDate"] !== undefined) {
+                    // data[i]["endDate"] = data[i]["endDate"].toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
+                    data[i]["hireDate"] = convertDate(data[i]["hireDate"]);
+                }
+                if (data[i]["endDate"] !== null && data[i]["endDate"] !== undefined) {
+                    // data[i]["endDate"] = data[i]["endDate"].toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
+                    data[i]["endDate"] = convertDate(data[i]["endDate"]);
+                }
+                if (data[i]["updatedAt"] !== null && data[i]["updatedAt"] !== undefined) {
+                    // data[i]["startDate"] = data[i]["startDate"].toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
+                    data[i]["updatedAt"] = convertDate(data[i]["updatedAt"]);
+                }
+            }
             resolve(data);
         }).catch((err) => {
             console.log(err);
@@ -439,6 +487,25 @@ module.exports.getCourseInfoById = function(id) {
             where: {courseId: id}
         }).then((data) => {
             data = data.map(value => value.dataValues);
+            for(i=0;i<data.length;i++){
+                // data[i]["updatedAt"] = data[i]["updatedAt"].toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
+                if ( data[i]["updatedAt"] !== null &&  data[i]["updatedAt"] !== undefined) {
+                    // data[i]["updatedAt"] =  data[i]["updatedAt"].toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
+                    data[i]["updatedAt"] = convertDate(data[i]["updatedAt"]);
+                }
+                if (data[i]["endDate"] !== null && data[i]["endDate"] !== undefined) {
+                    // data[i]["endDate"] = data[i]["endDate"].toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
+                    data[i]["endDate"] = convertDate(data[i]["endDate"]);
+                }
+                if (data[i]["startDate"] !== null && data[i]["startDate"] !== undefined) {
+                    // data[i]["startDate"] = data[i]["startDate"].toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
+                    data[i]["startDate"] = convertDate(data[i]["startDate"]);
+                }
+                if (data[i]["assignmentDueDate"] !== null && data[i]["assignmentDueDate"] !== undefined) {
+                    // data[i]["startDate"] = data[i]["startDate"].toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
+                    data[i]["assignmentDueDate"] = convertDate(data[i]["assignmentDueDate"]);
+                }
+           }            
             resolve(data);
         }).catch((err) => {
             console.log(err);
@@ -453,6 +520,18 @@ module.exports.getStudentById = function(id) {
             where: {studentId: id}
         }).then((data) => {
             data = data.map(value => value.dataValues);
+            if (data[0]["enrollDate"] !== null && data[0]["enrollDate"] !== undefined) {
+                // data[i]["endDate"] = data[i]["endDate"].toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
+                data[0]["enrollDate"] = convertDate(data[0]["enrollDate"]);
+            }
+            if (data[0]["endDate"] !== null && data[0]["endDate"] !== undefined) {
+                // data[i]["endDate"] = data[i]["endDate"].toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
+                data[0]["endDate"] = convertDate(data[0]["endDate"]);
+            }
+            if (data[0]["startDate"] !== null && data[0]["startDate"] !== undefined) {
+                // data[i]["startDate"] = data[i]["startDate"].toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
+                data[0]["startDate"] = convertDate(data[0]["startDate"]);
+            }
             resolve(data[0]);
         }).catch((err) => {
             reject("no results returned");
@@ -466,6 +545,7 @@ module.exports.getCourseById = function(id) {
             where: {courseId: id}
         }).then((data) => {
             data = data.map(value => value.dataValues);
+
             resolve(data[0]);
         }).catch((err) => {
             reject("no results returned");
@@ -477,6 +557,29 @@ module.exports.getStudentCourses = function() {
     return new Promise((resolve, reject) => {
         Student_Course.findAll().then((data) => {
             data = data.map(value => value.dataValues);
+            for(i=0;i<data.length;i++){
+
+                if (data[i]["enrollDate"] !== null && data[i]["enrollDate"] !== undefined) {
+                    // data[i]["endDate"] = data[i]["endDate"].toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
+                    data[i]["enrollDate"] = convertDate(data[i]["enrollDate"]);
+                }
+                if (data[i]["createdAt"] !== null && data[i]["createdAt"] !== undefined) {
+                    // data[i]["endDate"] = data[i]["endDate"].toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
+                    data[i]["createdAt"] = convertDate(data[i]["createdAt"]);
+                }
+                if ( data[i]["updatedAt"] !== null &&  data[i]["updatedAt"] !== undefined) {
+                    // data[i]["updatedAt"] =  data[i]["updatedAt"].toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
+                    data[i]["updatedAt"] = convertDate(data[i]["updatedAt"]);
+                }
+                if (data[i]["endDate"] !== null && data[i]["endDate"] !== undefined) {
+                    // data[i]["endDate"] = data[i]["endDate"].toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
+                    data[i]["endDate"] = convertDate(data[i]["endDate"]);
+                }
+                if (data[i]["startDate"] !== null && data[i]["startDate"] !== undefined) {
+                    // data[i]["startDate"] = data[i]["startDate"].toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
+                    data[i]["startDate"] = convertDate(data[i]["startDate"]);
+                }
+            }
             resolve(data);
         }).catch((err) => {
             console.log(err);
@@ -491,6 +594,31 @@ module.exports.getStudentCourseByStudentId = function(id) {
             where: {studentId: id}
         }).then((data) => {
             data = data.map(value => value.dataValues);
+
+            for(i=0;i<data.length;i++){
+                if (data[i]["enrollDate"] !== null && data[i]["enrollDate"] !== undefined) {
+                    // data[i]["endDate"] = data[i]["endDate"].toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
+                    data[i]["enrollDate"] = convertDate(data[i]["enrollDate"]);
+                }
+               if (data[i]["createdAt"] !== null && data[i]["createdAt"] !== undefined) {
+                    // data[i]["endDate"] = data[i]["endDate"].toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
+                    data[i]["createdAt"] = convertDate(data[i]["createdAt"]);
+                }
+                if ( data[i]["updatedAt"] !== null &&  data[i]["updatedAt"] !== undefined) {
+                    // data[i]["updatedAt"] =  data[i]["updatedAt"].toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
+                    data[i]["updatedAt"] = convertDate(data[i]["updatedAt"]);
+                }
+                if (data[i]["endDate"] !== null && data[i]["endDate"] !== undefined) {
+                    // data[i]["endDate"] = data[i]["endDate"].toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
+                    data[i]["endDate"] = convertDate(data[i]["endDate"]);
+                }
+                if (data[i]["startDate"] !== null && data[i]["startDate"] !== undefined) {
+                    // data[i]["startDate"] = data[i]["startDate"].toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
+                    data[i]["startDate"] = convertDate(data[i]["startDate"]);
+                }
+                
+            }
+            // console.log(data[0]);
             resolve(data);
         }).catch((err) => {
             reject("no results returned");
@@ -506,6 +634,18 @@ module.exports.getTeacherById = function(id) {
             where: {teacherId: id}
         }).then((data) => {
             data = data.map(value => value.dataValues);
+            if (data[0]["hireDate"] !== null && data[0]["hireDate"] !== undefined) {
+                // data[i]["endDate"] = data[i]["endDate"].toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
+                data[0]["hireDate"] = convertDate(data[0]["hireDate"]);
+            }
+            if (data[0]["endDate"] !== null && data[0]["endDate"] !== undefined) {
+                // data[i]["endDate"] = data[i]["endDate"].toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
+                data[0]["endDate"] = convertDate(data[0]["endDate"]);
+            }
+            if (data[0]["updatedAt"] !== null && data[0]["updatedAt"] !== undefined) {
+                // data[i]["startDate"] = data[i]["startDate"].toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
+                data[0]["updatedAt"] = convertDate(data[0]["updatedAt"]);
+            }
             resolve(data[0]);
         }).catch((err) => {
             reject("no results returned");
@@ -842,7 +982,6 @@ module.exports.updateDepartment = function(departmentData) {
     );
 }
 
-
 module.exports.updateStudent = function(studentData) {
     studentData.isManager = (studentData.isManager) ? true : false;
     return new Promise((resolve, reject) => {
@@ -908,8 +1047,6 @@ module.exports.updateTeacher = function(teacherData) {
         
     );
 }
-
-
 
 module.exports.updateCourse = function(courseData) {
     return new Promise((resolve, reject) => {
@@ -1168,4 +1305,12 @@ module.exports.insertMySqlDataByQuery = function(qry) {
             reject("insert student course error");
         };
    });
+}
+
+function convertDate(date){
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const withHyphens = [year, month, day].join('-');
+    return withHyphens;
 }

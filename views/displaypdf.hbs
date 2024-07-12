@@ -15,17 +15,17 @@
         </div>
         <div class="container">
                      <div class="formPopup palign {{#doccomp doctype 'PDF'}}{{/doccomp}}" id="popupForm">
-                            <form action="/action_page.php" class="formContainer" width=100% height=100%>
+                            {{!-- <form action="/action_page.php" class="formContainer" width=100% height=100%> --}}
+                            <form action="/action_page.php" class="formContainer" width=1100 height=1100 >
                                 <div class = "divbackgd"> 
                                     {{!-- <button type="button" class="btn" onclick="closePdfForm()">Close</button> --}}
                                     <input type="button" name="button" value="< Go Back" onclick="javascript:history.go(-1)"/>  
                                 </div>
                                 <div class ="divbackgdimg">
-                                            <iframe id = "pdfpath" src={{filepath}} width=600 height=600 ></iframe>                    
+                                            {{!-- <iframe id = "pdfpath" src={{filepath}} width=600 height=600 ></iframe>    --}}
+                                            <iframe id = "pdfpath" src={{filepath}} width=1000 height=600 ></iframe>                   
                                 </div>
                             </form>
                     </div>
         </div>
-        {{> footer}}
-    </body>
-</html>
+        
