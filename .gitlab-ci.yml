@@ -1,24 +1,3 @@
-stages:
-  - build
-  - test
-  - deploy
-
-build:
-  stage: build
+helloworld:
   script:
-    - npm install
-  artifacts:
-    paths:
-      - node_modules/
-
-test:
-  stage: test
-  script:
-    - npm test
-
-deploy:
-  stage: deploy
-  script:
-    - echo "Deploying application..."
-  only:
-    - master
+    - echo "Hello World"
