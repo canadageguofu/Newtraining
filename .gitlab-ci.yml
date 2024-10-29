@@ -6,6 +6,7 @@ stages:
 build:
   stage: build
   script:
+    - npm run start
     - npm -v
     - npm install
   artifacts:
