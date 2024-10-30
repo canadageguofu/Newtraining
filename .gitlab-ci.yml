@@ -1,33 +1,10 @@
 stages:
-  - build
-  - test
-  - deploy
+          - build
+          - deploy
 
-build:
-  stage: build
-  script:
-    - cd /builds/canadageguofu/cicddemo/.git/
-    - whoami
-    - pwd
-    - echo ${PATH}
-    - ls -lh $(which npm)
-    - install npm install  
-    - npm run start
-    - npm -v
- 
-  artifacts:
-    paths:
-      - node_modules/
-
-test:
-  stage: test
-  script:
-    - npm test
-
-deploy:
-  stage: deploy
-  script:
-    - echo "Deploying application..."
-  only:
-    - master
+deploy-prod:
+          image: node:12.13.0-alpine
+          stage: deploy
+          script:
+            - npm i -g firebase-tools
 
