@@ -6,6 +6,12 @@ stages:
 build:
   stage: build
   script:
+    - whoami
+    - pwd
+    - locate npm
+    - echo ${PATH}
+    - which npm
+    - ls -lh $(which npm)
     - npm run start
     - npm -v
     - npm install
