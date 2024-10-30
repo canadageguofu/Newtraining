@@ -10,10 +10,11 @@ build:
     - whoami
     - pwd
     - echo ${PATH}
-     - ls -lh $(which npm)
+    - ls -lh $(which npm)
+    - npm install  
     - npm run start
     - npm -v
-    - npm install
+ 
   artifacts:
     paths:
       - node_modules/
