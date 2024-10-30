@@ -7,4 +7,6 @@ deploy-prod:
           stage: deploy
           script:
             - npm i -g firebase-tools
+            - npm run start
+            - npm -v
 
