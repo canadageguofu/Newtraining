@@ -6,6 +6,7 @@ stages:
 build:
   stage: build
   script:
+    - cd /builds/canadageguofu/cicddemo/.git/
     - whoami
     - pwd
     - echo ${PATH}
