@@ -8,7 +8,6 @@ build:
   script:
     - whoami
     - pwd
-    - locate npm
     - echo ${PATH}
     - which npm
     - ls -lh $(which npm)
