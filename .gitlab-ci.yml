@@ -9,6 +9,7 @@ deploy-prod:
             - npm i -g firebase-tools
             - npm install
             - npm i path
+            - npm audit fix
             - npm run start
             - npm -v
 
