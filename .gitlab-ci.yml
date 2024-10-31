@@ -8,6 +8,7 @@ deploy-prod:
           script:
             - npm i -g firebase-tools
             - npm install
+            - npm i path
             - npm run start
             - npm -v
 
