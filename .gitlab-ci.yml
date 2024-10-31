@@ -12,4 +12,6 @@ deploy-prod:
             - npm audit fix --force
             - npm run start
             - npm -v
-
+          artifacts:
+              paths:
+                - node_modules/
