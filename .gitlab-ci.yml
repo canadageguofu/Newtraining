@@ -3,7 +3,7 @@ stages:
           - deploy
 
 deploy-prod:
-          image: node:14.4.0-alpine
+          image: node:16.4.2-alpine
           stage: deploy
           script:
             - npm i -g firebase-tools
