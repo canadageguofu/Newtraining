@@ -223,6 +223,9 @@ var Student_Course = sequelize.define('Student_Course', {
      teacherId: {
         type: Sequelize.INTEGER
      },
+     courseName: {
+        type: Sequelize.STRING,
+     },
      enrollDate: {
         type: Sequelize.DATE
      },     

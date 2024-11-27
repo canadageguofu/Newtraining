@@ -743,7 +743,7 @@ app.get("/regcourse", (req, res) => {
 });
 
 app.post("/course/reg", (req, res)=>{
-    let qry = "INSERT INTO Student_Courses(courseId, studentId, enrollDate, startDate, createdAt, updatedAt) VALUES('" + req.body.courseId +"'," + req.body.studentId + "," + "now(),now(),now(),now())";
+    let qry = "INSERT INTO Student_Courses(courseId, studentId,courseName enrollDate, startDate, createdAt, updatedAt) VALUES('" + req.body.courseId +"'," + req.body.studentId + "," + req.body.courseName + "now(),now(),now(),now())";
     // console.log(qry);
     db.insertMySqlDataByQuery(qry)
     .then(() => {
