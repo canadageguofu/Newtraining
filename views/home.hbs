@@ -7,18 +7,22 @@
     </head>
     {{!-- <body>
         {{> header user}}
-        <div class="container">
-            <br/>
-            <h1>Home Page</h1>
-            <br/>
-            {{#if user}}
-            <p>Welcome. You are logged in. Please Proceed to <a href="/dashboard">dashboard</a>             
-            </p>
-            {{else}}
-            <p>Welcome. Please <a href="/login">log in</a>.</p>
-            {{/if}}
-            
-        </div>
+        <main class="container py-5">
+            <div class="p-5 mb-4 bg-white rounded-3 shadow-sm text-center">
+                <div class="container-fluid py-2">
+                    <h1 class="display-5 fw-bold">Welcome Home</h1>
+                    <p class="col-md-8 mx-auto fs-4 text-muted">Hunan Data Analytics Center</p>
+                    <hr class="my-4">
+                    {{#if user}}
+                    <p class="lead">You are logged in.</p>
+                    <a class="btn btn-primary btn-lg mt-2" href="/dashboard" role="button">Proceed to Dashboard</a>             
+                    {{else}}
+                    <p class="lead">Please log in to continue.</p>
+                    <a class="btn btn-outline-primary btn-lg mt-2" href="/login" role="button">Log In</a>
+                    {{/if}}
+                </div>
+            </div>
+        </main>
         {{> footer}}
     </body> --}}
         <body class="bg-light">
@@ -41,6 +45,9 @@
         </main>
         {{> footer}}
     </body>
+
+</html>
+
 
 </html>
 
