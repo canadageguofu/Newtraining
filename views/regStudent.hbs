@@ -4,135 +4,182 @@
         <title>Register Student</title>
         <link rel="stylesheet" href="css/theme.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+        <style>
+            .reg-card {
+                background: rgba(255, 255, 255, 0.92);
+                border-radius: 12px;
+                box-shadow: 0 6px 24px rgba(0, 0, 0, 0.18);
+            }
+            .reg-header {
+                background: linear-gradient(135deg, #4e54c8, #8f94fb);
+                border-radius: 12px 12px 0 0;
+                padding: 1.5rem 2rem;
+                color: #fff;
+            }
+            .reg-header h1 {
+                font-size: 1.75rem;
+                font-weight: 700;
+                margin: 0;
+                letter-spacing: 0.03em;
+            }
+            .reg-header p {
+                margin: 0.25rem 0 0;
+                opacity: 0.85;
+                font-size: 0.95rem;
+            }
+            .reg-body {
+                padding: 1.75rem 2rem;
+            }
+            fieldset {
+                border: 1px solid #dee2e6;
+                border-radius: 8px;
+                padding: 1.25rem 1.5rem;
+                margin-bottom: 1.5rem;
+                background: #f8f9fa;
+            }
+            fieldset legend {
+                float: none;
+                width: auto;
+                padding: 0 0.5rem;
+                font-size: 1rem;
+                font-weight: 600;
+                color: #4e54c8;
+            }
+            .form-label {
+                font-weight: 500;
+                color: #343a40;
+                margin-bottom: 0.3rem;
+            }
+            .form-control:focus {
+                border-color: #8f94fb;
+                box-shadow: 0 0 0 0.2rem rgba(78, 84, 200, 0.2);
+            }
+            .btn-register {
+                background: linear-gradient(135deg, #4e54c8, #8f94fb);
+                border: none;
+                padding: 0.55rem 2.5rem;
+                font-size: 1rem;
+                font-weight: 600;
+                letter-spacing: 0.04em;
+                border-radius: 6px;
+                transition: opacity 0.2s;
+            }
+            .btn-register:hover {
+                opacity: 0.88;
+            }
+        </style>
     </head>
     <body>
         {{!-- {{> header user}} --}}
-        <div class="container">
-            <br/>
-            <h1>Register Student</h1>
-            <br/>
+        <div class="container py-5">
             {{!-- {{#if user.isManager}} --}}
-                <div class="row">
-                    <main class="col-md-12">
-                        <form method = "post" action = "/students/reg">
-                            <fieldset>
-                                <br>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label>Student Name</label>
-                                            <input class="form-control" name = "studentName" type="text"/>
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="reg-card">
+                        <div class="reg-header">
+                            <h1>&#127891; Register Student</h1>
+                            <p>Fill in the details below to register a new student.</p>
+                        </div>
+                        <div class="reg-body">
+                            <form method="post" action="/students/reg">
+
+                                <fieldset>
+                                    <legend>Basic Information</legend>
+                                    <div class="row mb-3">
+                                        <div class="col-md-12">
+                                            <label for="studentName" class="form-label">Student Name</label>
+                                            <input class="form-control" id="studentName" name="studentName" type="text" placeholder="Full name" />
                                         </div>
-                                    </div>                                    
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="email" class="form-label">Email</label>
+                                            <input class="form-control" id="email" name="email" type="email" placeholder="example@email.com" required />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="SSN" class="form-label">Identity Number</label>
+                                            <input class="form-control" id="SSN" name="SSN" type="text" placeholder="Identity number" />
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-3">
+                                            <label for="addressStreet" class="form-label">Street</label>
+                                            <input class="form-control" id="addressStreet" name="addressStreet" type="text" placeholder="123 Main St" />
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="addressCity" class="form-label">City / Town</label>
+                                            <input class="form-control" id="addressCity" name="addressCity" type="text" placeholder="City" />
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="addressState" class="form-label">Province / State</label>
+                                            <input class="form-control" id="addressState" name="addressState" type="text" placeholder="Province / State" />
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="addressPostal" class="form-label">Postal Code</label>
+                                            <input class="form-control" id="addressPostal" name="addressPostal" type="text" placeholder="Postal code" />
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset>
+                                    <legend>Personal Information</legend>
+                                    <div class="row mb-3">
+                                        <div class="col-md-3 d-flex flex-column">
+                                            <label class="form-label">Is Working</label>
+                                            <div class="form-check mt-1">
+                                                <input class="form-check-input" id="isManager" name="isManager" type="checkbox" />
+                                                <label class="form-check-label" for="isManager">Currently employed</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="highestEducation" class="form-label">Highest Education</label>
+                                            <input class="form-control" id="highestEducation" name="highestEducation" type="text" placeholder="e.g. Bachelor's" />
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="graduateSchool" class="form-label">Graduate School</label>
+                                            <input class="form-control" id="graduateSchool" name="graduateSchool" type="text" placeholder="School name" />
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="form-label">Status</label>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" id="statusFull" name="status" value="Full Time" />
+                                                <label class="form-check-label" for="statusFull">Full Time</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" id="statusPart" name="status" value="Part Time" />
+                                                <label class="form-check-label" for="statusPart">Part Time</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-3">
+                                            <label for="enrollDate" class="form-label">Enroll Date</label>
+                                            <input class="form-control" id="enrollDate" name="enrollDate" type="date" />
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="startDate" class="form-label">Start Date</label>
+                                            <input class="form-control" id="startDate" name="startDate" type="date" />
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="endDate" class="form-label">End Date</label>
+                                            <input class="form-control" id="endDate" name="endDate" type="date" />
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="password" class="form-label">Password</label>
+                                            <input class="form-control" id="password" name="password" type="password" placeholder="Create a password" required minlength="6" />
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <div class="d-flex justify-content-end mt-2">
+                                    <input type="submit" class="btn btn-primary btn-register text-white" value="Register Student" />
                                 </div>
 
-                               <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Email:</label>
-                                            <input class="form-control" name = "email" type="text" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Identity Number:</label>
-                                            <input class="form-control" name = "SSN" type="text"  />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label>Address (Street):</label>
-                                            <input class="form-control" name = "addressStreet" type="text"  />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label >Address (City/Town):</label>
-                                        <input class="form-control" id="addressCity" name = "addressCity" type="text"  />
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label>Address (Province/State):</label>
-                                            <input class="form-control" name = "addressState" type="text"  />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label>Address (Postal Code):</label>
-                                            <input class="form-control" name = "addressPostal" type="text" />
-                                        </div>
-                                    </div>
-                                </div>
-                                 
-                            </fieldset>
-                            <fieldset>
-                                <legend>Personal Information</legend>
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label>Is Working:</label>
-                                            <br/>
-                                            <input class="form-check-input" name = "isManager" type="checkbox" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label>Highest Education:</label>
-                                            <input class="form-control" name = "highestEducation" type="text"  />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                                <label>Graduate School:</label>
-                                                <input class="form-control" name = "graduateSchool" type="text" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label>Status:</label><br />
-                                            <label class="checkbox-inline">
-                                                <input type="radio" name = "status" value="Full Time" /> Full Time
-                                            </label>
-                                            <label class="checkbox-inline">
-                                                <input type="radio" name = "status" value="Part Time" /> Part Time
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label>Enroll Date</label>
-                                            <input class="form-control" name = "enrollDate" type="text" />
-                                        </div>
-                                    </div>
-                                   <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label>Start Date</label>
-                                            <input class="form-control" name = "startDate" type="text" />
-                                        </div>
-                                    </div>
-                                   <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label>End Date</label>
-                                            <input class="form-control" name = "endDate" type="text" />
-                                        </div>
-                                    </div>
-                                   <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label>Password:</label>
-                                            <input class="form-control" name = "password" type="text" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </fieldset>
-                            <hr />
-                            <input type="submit" class="btn btn-primary float-right" value="Submit" /><br /><br /><br />
-                        </form>
-                    </main>
+                            </form>
+                        </div>
+                    </div>
                 </div>
+            </div>
             {{!-- {{else}}
                 <p class="errorMsg">You are not authorized to see this page.</p>
             {{/if}} --}}
