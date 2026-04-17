@@ -713,7 +713,8 @@ app.post("/students/reg", (req, res)=>{
                         // path.resolve(data[0]);
                         let qry = "INSERT INTO adms(username,pwd,isManager,employeeNum,createdAt,updatedAt) VALUES('" + req.body.studentName +"','" + req.body.password+"',false," + data.studentId +",now(),now())";
                         db.insertMySqlDataByQuery(qry).then(()=>{
-                            res.status(200).send("Please use your name and password login to register course system " +"\n"+ "Your student ID is " + data.studentId + " and use your student Id to register courses");
+                            res.render("home", {user: req.session.user});
+                            // res.status(200).send("Please use your name and password login to register course system " +"\n"+ "Your student ID is " + data.studentId + " and use your student Id to register courses");
                         }).catch((err)=>{
                             console.log(err);
                         })  
