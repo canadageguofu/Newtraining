@@ -128,7 +128,11 @@ app.post("/login", (req, res) => {
             };
             db.addLog({activityId:'',activityType:'login',activityTime:Date.now(),description: usr.username})
             .then(() => {
-                res.redirect("/dashboard")
+                if(usr.isManager){
+                    res.redirect("/dashboard")
+                } else {
+                    res.redirect("/student_courses/search/" + usr.employeeNum)
+                 }            
             }).catch((err) => {
                 res.status(500).send(err);
             })
@@ -743,6 +747,22 @@ app.get("/regcourse", (req, res) => {
     })    
 });
 
+
+app.get("/regcourse/:id", (req, res) => {
+    // let courseIds = [];
+    console.log(req.params.id);
+    db.getCourses()
+    .then((data) => {
+        if (data.length > 0) {
+            res.render("regCourse", {courses:data, strcourses: JSON.stringify(data), studentID:req.params.id});
+            // res.render("regCourse", {courses: data});            
+        } else {
+            res.render("regCourse", {message: "no results", studentID:req.params.id})
+    }}).catch(() => {
+        res.render("regCourse", {message: "Encountered error"});
+    })    
+});
+
 app.post("/course/reg", (req, res)=>{
     let qry = "INSERT INTO Student_Courses(courseId, studentId,courseName enrollDate, startDate, createdAt, updatedAt) VALUES('" + req.body.courseId +"'," + req.body.studentId + "," + req.body.courseName + "now(),now(),now(),now())";
     // console.log(qry);
@@ -791,7 +811,8 @@ app.get("/student_courses/search/:id", (req, res) => {
                     res.render("student_courses", {student_courses: data, user: req.session.user});
                 }
                 else{
-                    res.render("student_coursesd", {student_courses: data, user: req.session.user});                   
+                    // res.render("student_coursesd", {student_courses: data, user: req.session.user},{studentID:req.params.id}); 
+                    res.render("student_coursesd", {student_courses: data, user: req.session.user});                                      
                 }
  
         } else {

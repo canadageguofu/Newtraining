@@ -11,13 +11,15 @@
     <body>
         {{> header user}}
 
+
         <div class="container">
                 <br/>
                 <h1>Student Courses</h1>
                 <br>
                 <nav class="navbar navbar-light bg-light">
                     <div class="container-fluid">
-                        <a href="/regcourse"><button type="button" class="btn btn-success">Register Courses</button></a>
+                        <a href="/regcourse/{{user.employeeNum}}"><button type="button" class="btn btn-success">Register Courses</button></a>
+                        {{!-- <a href="/regcourse"><button type="button" class="btn btn-success">Register Courses</button></a> --}}
                     </div>
                 </nav>
                 <br>
