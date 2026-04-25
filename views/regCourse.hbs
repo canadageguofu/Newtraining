@@ -4,6 +4,9 @@
         <title>Register Course</title>
         <link rel="stylesheet" href="css/theme.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     </head>
     <body>
         {{!-- {{> header user}} --}}
@@ -97,13 +100,26 @@
                 for(let i=0;i < aC.length; i++){
                     if (aC[i].courseId == cvalue){
                         cPrice = aC[i].coursePrice;
-//                        alert(cPrice);
+ //                        alert(cPrice);
                         document.getElementById('coursePrice').value = cPrice;
                         break;
                     }
                 }
            
             }
+
+            // If there is only one course option, auto-fill the Course Id and Course Price
+            // so the user doesn't see empty/grey-looking fields.
+            window.addEventListener('DOMContentLoaded', function () {
+                var courseSelect = document.getElementById('course');
+                if (!courseSelect) return;
+
+                // options[0] is "Select Course"
+                if (courseSelect.options.length === 2) {
+                    courseSelect.selectedIndex = 1;
+                    course_changed();
+                }
+            });
         </script>
     </body>
 </html>
