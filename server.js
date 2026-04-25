@@ -754,24 +754,32 @@ app.get("/regcourse/:id", (req, res) => {
     db.getCourses()
     .then((data) => {
         if (data.length > 0) {
-            res.render("regCourse", {courses:data, strcourses: JSON.stringify(data), studentID:req.params.id});
+            res.render("regCourse", {courses:data, strcourses: JSON.stringify(data), studentId:req.params.id});
             // res.render("regCourse", {courses: data});            
         } else {
-            res.render("regCourse", {message: "no results", studentID:req.params.id})
+            res.render("regCourse", {message: "no results", studentId:req.params.id})
     }}).catch(() => {
         res.render("regCourse", {message: "Encountered error"});
     })    
 });
 
 app.post("/course/reg", (req, res)=>{
-    let qry = "INSERT INTO Student_Courses(courseId, studentId,courseName enrollDate, startDate, createdAt, updatedAt) VALUES('" + req.body.courseId +"'," + req.body.studentId + "," + req.body.courseName + "now(),now(),now(),now())";
-    // console.log(qry);
-    db.insertMySqlDataByQuery(qry)
-    .then(() => {
-        res.redirect("/student_courses/search/" + req.body.studentId)
-    }).catch((err) => {
-        res.status(500).send(err);
-    })
+    console.log(req.body);
+                        db.getCourseById(req.body.course)
+                            .then((data)=>{
+                                let qry = "INSERT INTO Student_Courses(courseId, studentId,courseName, enrollDate, startDate, createdAt, updatedAt) VALUES('" + req.body.courseId +"'," + req.body.studentId + ",'" + data.courseName + "',now(),now(),now(),now())";
+                                console.log(qry);
+                                db.insertMySqlDataByQuery(qry)
+                                .then(() => {
+                                    res.redirect("/student_courses/search/" + req.body.studentId)
+                                }).catch((err) => {
+                                    res.status(500).send(err);
+                                })
+                            }).catch((err)=>{
+                                res.render("payments", {message: "Encountered error in course"});
+                            })
+
+
 });
 
 app.get("/student_courses", (req, res) => {
