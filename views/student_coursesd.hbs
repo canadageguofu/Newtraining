@@ -23,6 +23,10 @@
                 <br>
                 <div class="row">
                             {{!-- <form >             --}}
+
+                            {{!-- Only render the table when there are courses, otherwise show the message.
+                                  This prevents the table header from stretching across the screen on empty data. --}}
+                            {{#if student_courses}}
                                 <div class = "table-responsive">
                                     <table class = "table" border-collapse = "collapse" border-color = "red" border = "5px solid" width="auto" id=tab1> 
                                        <thead bgcolor="darkblue" style="color: white; text-transform:uppercase; text-align: center;vertical-align: middle;font-size: 0.875rem;" >  
@@ -57,7 +61,7 @@
                                                         {{#if paid}}
                                                             <a href="/courseinfo/{{courseId}}"><button type="button" class="btn btn-info">Course Info</button></a>
                                                         {{else}}
-                                                            <a href="/studentspay/{{courseId}}/{{studentId}}"><button type="button" class="btn btn-info">Payment</button></a>                                                    
+                                                            <a href="/studentspay/{{courseId}}/{{studentId}}"><button type="button" class="btn btn-info">Payment</button></a>
                                                         {{/if}}
                                                         {{!-- <a href="/student_courses/{{studentId}}">
                                                             <button class = "btn btn-warning">Update</button>
@@ -68,22 +72,23 @@
                                                     </td>
                                                 </tr> 
                                             </tbody>
-                                               <script   language=javascript>  
-                                                    var   a = document.all.tab1.getElementsByTagName("tr");  
-                                                    for   (var   i=1;   i<a.length;   i++)  
-                                                    {  
-                                                            a[i].style.background=(i%2==1)   ?   "#C0C0C0"   :   "#FFFFFF";    
-                                                    }  
-                                                </script>                                            
                                         {{/each}}
                                     </table>
-                                   
+
                                 </div>  
-                                {{#unless student_courses}}
-                                    <div class="text-center">
-                                        <strong>{{message}}</strong>
-                                    </div>
-                                {{/unless}}
+
+                                <script language="javascript">  
+                                    var a = document.all.tab1.getElementsByTagName("tr");
+                                    for (var i = 1; i < a.length; i++) {
+                                        a[i].style.background = (i % 2 == 1) ? "#C0C0C0" : "#FFFFFF";
+                                    }
+                                </script>
+                            {{else}}
+                                <div class="text-center">
+                                    <strong>{{message}}</strong>
+                                </div>
+                            {{/if}}
+
                             {{!-- </form> --}}
                  </div>
         </div>
