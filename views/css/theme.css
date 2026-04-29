@@ -188,8 +188,10 @@ table {
     /* width:25%; */
     width: auto;
     max-height: 800px;
+    min-height: 0;
     border: 5px solid;
-    height: 500px;
+    /*height: 500px;*/
+    height: auto;
     overflow: scroll;
     /* border: 1px solid black;
     text-align: center;

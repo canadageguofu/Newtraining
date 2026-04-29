@@ -79,33 +79,35 @@
             {{/if}} --}}
         </div>
         {{!-- {{> footer}} --}}
-        <script type="text/javascript">
+            <script type="text/javascript">
             function course_changed() {
-
- //               const path = require("path");
- //               const db = require(path.join(__dirname, "/modules/dbModule"));
- //               const db = require("../modules/dbModule");
                 var e = document.getElementById('course');
-                var str = e.options[e.selectedIndex].text;
- //               alert(str + "   " + e.selectedIndex );
                 var cvalue = e.value;
                 document.getElementById('courseId').value = cvalue;
+
                 var allCourses = document.getElementById('AllCourses').value;
                 var aC = JSON.parse(allCourses);
- //                 alert(aC);
- //                 alert(aC[0].coursePrice);
- //               alert(aC[0].courseName);
-                for(let i=0;i < aC.length; i++){
-                    if (aC[i].courseId == cvalue){
-                        cPrice = aC[i].coursePrice;
-//                        alert(cPrice);
-                        document.getElementById('coursePrice').value = cPrice;
-                        break;
-                    }
+
+                for (let i = 0; i < aC.length; i++) {
+                if (aC[i].courseId == cvalue) {
+                    document.getElementById('coursePrice').value = aC[i].coursePrice;
+                    break;
                 }
-           
+                }
             }
-        </script>
+
+            // Auto-select if there is exactly 1 real course option
+            window.addEventListener('DOMContentLoaded', function () {
+                var courseSelect = document.getElementById('course');
+                if (!courseSelect) return;
+
+                // options[0] is "Select Course", so length === 2 means one course
+                if (courseSelect.options.length === 2) {
+                courseSelect.selectedIndex = 1;
+                course_changed();
+                }
+            });
+            </script>
         {{> footer}}
     </body>
 </html>
