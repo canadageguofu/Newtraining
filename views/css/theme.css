@@ -197,7 +197,13 @@ table {
     text-align: center;
 	vertical-align: middle; */
   } 
-  .scroll {
+tr:hover {
+  background-color: #eae2e3;
+}
+td:hover{
+  background-color: #e2eae3;
+}
+ .scroll {
     max-height: 500px;
     overflow: auto;
   }

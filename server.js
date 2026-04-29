@@ -490,7 +490,7 @@ app.get("/course_info", (req, res) => {
 });
 
 app.post("coursesinfo/search", (req, res) => {
-    console.log("FHhdgjhdgjgagdjsgdjsgdjsgjsgj");
+ 
     res.redirect("/courseinfo/" + req.body.S_courseId)
 });
 

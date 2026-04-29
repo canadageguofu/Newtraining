@@ -1,118 +1,100 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Payment</title>
-        <link rel="stylesheet" href="/css/theme.css">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-    </head>
-    <body>
-        {{> header user}}
-        {{!-- {{> header user}} --}}
-        <div class="container">
-            <br/>
-            <h1>Payment</h1>
-            <br/>
-            {{!-- {{#if user.isManager}} --}}
-                <div class="row">
-                    <main class="col-md-12">
-                        <form method = "post" action = "/payment_results">
-                            <fieldset>
-                                <br>
-                                <legend>Course Information</legend>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Student Id</label>
-                                            <input class="form-control" name = "studentId" type="text" value="{{student_courses.studentId}}"/>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Student Name</label>
-                                            <input class="form-control" name = "studentName" type="text" value="{{student_courses.studentName}}"/>
-                                        </div>
-                                    </div>
-                            
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label>Course Id:</label>
-                                            <input class="form-control" name = "courseId" id ="courseId" type="text" value="{{student_courses.courseId}}"/>
-                                        </div>
-                                    </div>
-                                     <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label>Course Name:</label>
-                                            <input class="form-control" name = "courseName" id ="courseName" type="text" value="{{student_courses.courseName}}"/>
-                                        </div>
-                                    </div>                                
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label>Course Price:</label>
-                                            <input class="form-control" id="coursePrice" name = "coursePrice" type="text" value="{{student_courses.coursePrice}}" />
-                                        </div>
-                                    </div>
-                                </div>
-                             </fieldset>
-
-                            <fieldset>
-                                <br>
-                                <legend>Payment Information</legend>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                            <h3 class="text-center">Payment Details</h3>
-                                            <img class="img-responsive cc-img" src="https://www.prepbootstrap.com/Content/images/shared/misc/creditcardicons.png">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label>CARD NUMBER</label>
-                                            <div class="input-group">
-                                                <input type="tel" name="cardNumber" class="form-control" placeholder="Valid Card Number" />
-                                                <span class="input-group-addon"><span class="fa fa-credit-card"></span></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs-7 col-md-7">
-                                        <div class="form-group">
-                                            <label><span class="hidden-xs">EXPIRATION</span><span class="visible-xs-inline">EXP</span> DATE</label>
-                                            <input type="tel" class="form-control" name="expirDate" placeholder="MM / YY" />
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-5 col-md-5 pull-right">
-                                        <div class="form-group">
-                                            <label>CV CODE</label>
-                                            <input type="tel" class="form-control" name="cvCode" placeholder="CVC" />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-xs-12">
-                                        <div class="form-group">
-                                            <label>CARD OWNER</label>
-                                            <input type="text" class="form-control" name="cardOwner" placeholder="Card Owner Names" />
-                                        </div>
-                                    </div>
-                                </div>                                
-
-                             </fieldset>
-
-
-                            <hr />
-                            <input type="submit" class="btn btn-primary float-right" value="Submit & Process Pay" /><br /><br /><br />
-                        </form>
-                    </main>
+<head>
+    <title>Payment</title>
+    <link rel="stylesheet" href="/css/theme.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+      /* Optional: Card shadow and customization */
+      .card { box-shadow: 0 2px 16px rgba(0,0,0,0.05);}
+      .cc-img { max-height: 36px; margin-bottom: 12px; }
+      .legend-title { font-size: 1.25rem; font-weight: bold; color: #5a5a5a; }
+      label { font-weight: 500; }
+      .form-group { margin-bottom: 1.25rem; }
+    </style>
+</head>
+<body>
+{{> header user}}
+<div class="container py-4" style="max-width: 700px;">
+    <h1 class="mb-4 text-primary fw-bold"><i class="bi bi-credit-card-2-front"></i> Payment</h1>
+    <form method="post" action="/payment_results" autocomplete="off">
+        <!-- Course Information Section -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <legend class="legend-title mb-3"><i class="bi bi-book"></i> Course Information</legend>
+                <div class="row g-3">
+                    <div class="col-6">
+                        <label>Student ID</label>
+                        <input class="form-control" name="studentId" type="text" value="{{student_courses.studentId}}" readonly />
+                    </div>
+                    <div class="col-6">
+                        <label>Student Name</label>
+                        <input class="form-control" name="studentName" type="text" value="{{student_courses.studentName}}" readonly />
+                    </div>
+                    <div class="col-md-4">
+                        <label>Course ID</label>
+                        <input class="form-control" name="courseId" type="text" value="{{student_courses.courseId}}" readonly />
+                    </div>
+                    <div class="col-md-4">
+                        <label>Course Name</label>
+                        <input class="form-control" name="courseName" type="text" value="{{student_courses.courseName}}" readonly />
+                    </div>
+                    <div class="col-md-4">
+                        <label>Course Price</label>
+                        <input class="form-control" name="coursePrice" type="text" value="{{student_courses.coursePrice}}" readonly />
+                    </div>
                 </div>
-            {{!-- {{else}}
-                <p class="errorMsg">You are not authorized to see this page.</p>
-            {{/if}} --}}
+            </div>
         </div>
-        {{!-- {{> footer}} --}}
-    {{> footer}}
-    </body>
+
+        <!-- Payment Information Section -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <legend class="legend-title mb-3"><i class="bi bi-cash-coin"></i> Payment Information</legend>
+                <div class="text-center mb-3">
+                    {{!-- <img class="cc-img" src="https://www.prepbootstrap.com/Content/images/shared/misc/creditcardicons.png" alt="Card Icons"> --}}
+                    <img class="cc-img" src="/image/contactless.png" alt="Card Icons">
+                </div>
+                <div class="mb-3">
+                    <label>CARD NUMBER</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-credit-card"></i></span>
+                        <input type="tel" name="cardNumber" class="form-control" maxlength="19" placeholder="Valid Card Number" required/>
+                    </div>
+                </div>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label>EXPIRATION DATE</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-calendar3"></i></span>
+                            <input type="tel" class="form-control" name="expirDate" maxlength="5" placeholder="MM/YY" required/>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label>CV CODE</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-shield-lock"></i></span>
+                            <input type="tel" class="form-control" name="cvCode" maxlength="4" placeholder="CVC" required/>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <label>CARD OWNER</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-person"></i></span>
+                        <input type="text" class="form-control" name="cardOwner" maxlength="32" placeholder="Card Owner Names" required/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-end">
+            <button type="submit" class="btn btn-primary btn-lg px-4">
+                <i class="bi bi-currency-dollar"></i> Submit & Pay
+            </button>
+        </div>
+    </form>
+</div>
+{{> footer}}
+</body>
 </html>
