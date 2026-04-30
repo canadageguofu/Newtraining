@@ -738,7 +738,7 @@ app.get("/regcourse", (req, res) => {
     db.getCourses()
     .then((data) => {
         if (data.length > 0) {
-            res.render("regCourse", {courses:data, strcourses: JSON.stringify(data)});
+            res.render("regCourse", {courses:data, strcourses: JSON.stringify(data), user: req.session.user});
             // res.render("regCourse", {courses: data});            
         } else {
             res.render("regCourse", {message: "no results"})
@@ -754,10 +754,10 @@ app.get("/regcourse/:id", (req, res) => {
     db.getCourses()
     .then((data) => {
         if (data.length > 0) {
-            res.render("regCourse", {courses:data, strcourses: JSON.stringify(data), studentId:req.params.id});
+            res.render("regCourse", {courses:data, strcourses: JSON.stringify(data), studentId:req.params.id, user: req.session.user});
             // res.render("regCourse", {courses: data});            
         } else {
-            res.render("regCourse", {message: "no results", studentId:req.params.id})
+            res.render("regCourse", {message: "no results", studentId:req.params.id, user: req.session.user})
     }}).catch(() => {
         res.render("regCourse", {message: "Encountered error"});
     })    
@@ -831,6 +831,14 @@ app.get("/student_courses/search/:id", (req, res) => {
     })
 });
 
+app.get("/student_courses/delete/:sid/:cid", (req, res) => {
+    db.deleteStudentCourseById(req.params.sid,req.params.cid)
+    .then(() => {
+        res.redirect("/student_courses/search/"+ req.params.sid);
+    }).catch((err) => {
+        res.status(500).send(err);
+    })
+});
 
 // DEPARTMENTS
 
@@ -894,7 +902,7 @@ app.post("/payment_results", (req,res)=>{
     db.insertMySqlDataByQuery(qry).then(()=>{
         let qry = "UPDATE Student_Courses SET paid = 1 WHERE StudentId = " + req.body.studentId + "  AND courseId = '" + req.body.courseId +"';"
         db.insertMySqlDataByQuery(qry).then(()=>{
-            res.render("payment_result", {user: req.session.user});
+            res.render("payment_result", {user: req.session.user, courseName:req.body.courseName});
         }).catch((err)=>{
             console.log("update student courses failed!");
         })       

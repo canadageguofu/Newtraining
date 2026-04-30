@@ -1177,6 +1177,18 @@ module.exports.deleteCourseById = function(id) {
     });
 }
 
+module.exports.deleteStudentCourseById = function(sid,cid) {
+    return new Promise((resolve, reject) => {
+        Student_Course.destroy({
+            where: {studentId:sid, courseId: cid}
+        }).then(() => {
+            resolve("Student " + sid + " Course " +cid  + " was successfully deleted");
+        }).catch(() =>{
+            reject("unable to delete " + "Student " + sid + " Course " +cid + " course");
+        })
+    });
+}
+
 
 module.exports.deleteAdmByNam = function(usrNam) {
     return new Promise((resolve, reject) => {

@@ -32,8 +32,8 @@
             </nav>
             <br>
             <div class = "table-responsive">
-                <table class = "table">
-                    <thead>    
+                <table class = "table" border-collapse = "collapse" border-color = "red" border = "5px solid" width="auto" id=tab1> 
+                    <thead bgcolor="darkblue" style="color: white; text-transform:uppercase; text-align: center;vertical-align: middle;font-size: 0.875rem;" >     
                         <tr>
                             <th>Course Number</th>
                             <th>Course Name</th>
@@ -58,7 +58,13 @@
                     </tr>
                     {{/each}}
                 </table>
-            </div>  
+            </div> 
+            <script language="javascript">  
+                var a = document.all.tab1.getElementsByTagName("tr");
+                    for (var i = 1; i < a.length; i++) {
+                        a[i].style.background = (i % 2 == 1) ? "#C0C0C0" : "#FFFFFF";
+                    }
+            </script> 
             {{#unless courses}}
                 <div class="text-center">
                     <strong>{{message}}</strong>

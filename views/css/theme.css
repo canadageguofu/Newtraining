@@ -203,6 +203,7 @@ tr:hover {
 td:hover{
   background-color: #e2eae3;
 }
+/* th： { white-space: nowrap; } */
  .scroll {
     max-height: 500px;
     overflow: auto;
@@ -218,6 +219,7 @@ td:hover{
 	letter-spacing: 2%;
     text-align: center;
     vertical-align: middle;  
+  white-space: nowrap;
 }
 
 [data-status="true"] {
