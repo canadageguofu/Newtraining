@@ -33,7 +33,8 @@ let mysqlconfig = {
   port: "3306",
   user: "root",
   password: "V2jUQTjVAyMhPIg",
-  database: "Category_Main"    
+  database: "Category_Main",
+  dateStrings: true   
 }
 
 // var sequelize = new Sequelize(
